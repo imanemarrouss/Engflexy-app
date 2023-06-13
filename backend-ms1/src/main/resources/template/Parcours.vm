@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 0 10px #ddd;
+        }
+
+        .header {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 35px;
+            font-weight: bold;
+            margin: 0;
+            color: #c9302c;
+        }
+
+        .company-info {
+            margin-bottom: 20px;
+        }
+
+        .company-info p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .invoice-details {
+            margin-bottom: 20px;
+        }
+
+        .invoice-details p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            height: 40px;
+            text-align: left;
+            font-size: 17px;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            font-weight: bold;
+        }
+
+        .totals {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .totals p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .footer {
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header" style="font-family: Noto Sans JP, sans-serif;">
+        <h1>REÇU</h1>
+    </div>
+    <br/>
+    <hr style="color:#c9302c ;height: 3px"></hr>
+    <br/>
+
+    <table style="width: 100%">
+
+                            <tr>
+                        <td style="text-align: left;border-bottom: 0"><span
+                                    style="font-weight: bold;">DatePublication:</span> $datePublication</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;border-bottom: 0"><span
+                                    style="font-weight: bold;">DateCreation:</span> $dateCreation</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;border-bottom: 0"><span
+                                    style="font-weight: bold;">Code:</span> $code</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;border-bottom: 0"><span
+                                    style="font-weight: bold;">Libelle:</span> $libelle</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;border-bottom: 0"><span
+                                    style="font-weight: bold;">NumeroOrder:</span> $numeroOrder</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;border-bottom: 0"><span
+                                    style="font-weight: bold;">NombreCours:</span> $nombreCours</td>
+                    </tr>
+                <tr>
+                    <td style="text-align: left;border-bottom: 0"><span
+                                style="font-weight: bold;">Centre::</span> $centre
+                        .ref</td>
+                </tr>
+
+    </table>
+    <br/><br/><br/><br/><br/>
+    <table>
+        <thead>
+        <tr style="background-color: #e9ebec">
+                            <th>Code</th>
+                            <th>Libelle</th>
+                            <th>Description</th>
+                            <th>Image</th>
+                            <th>EtatCours</th>
+                            <th>Parcours</th>
+                            <th>NombreSectionFinalise</th>
+                            <th>NombreSectionEnCours</th>
+                            <th>NombreLinkEnCours</th>
+                            <th>NombreLinkFinalise</th>
+                            <th>NumeroOrder</th>
+                            <th>Ref</th>
+                            <th>TeacherLocality</th>
+                            <th>GroupOption</th>
+                            <th>Email</th>
+                            <th>EtatEtudiantSchedule</th>
+                            <th>Parcours</th>
+                            <th>GroupeEtude</th>
+                            <th>PackStudent</th>
+                            <th>StatutSocial</th>
+                            <th>InteretEtudiant</th>
+                            <th>NiveauEtude</th>
+                            <th>Skill</th>
+                            <th>Fonction</th>
+                            <th>Langue</th>
+        </tr>
+        </thead>
+
+        <tbody>
+                #foreach( $item in $courss )
+                #if( ($foreach.index % 2) == 0 )
+                <tr style="background-color: #f4f5f6">
+                    #else
+                <tr style="background-color: #e9ebec">
+                    #end
+                            <td>$item.code</td>
+                            <td>$item.libelle</td>
+                            <td>$item.description</td>
+                            <td>$item.image</td>
+                            <td>$item.etatCours.libelle</td>
+                            <td>$item.nombreSectionFinalise</td>
+                            <td>$item.nombreSectionEnCours</td>
+                            <td>$item.nombreLinkEnCours</td>
+                            <td>$item.nombreLinkFinalise</td>
+                            <td>$item.numeroOrder</td>
+                </tr>
+                #end
+                #foreach( $item in $etudiants )
+                #if( ($foreach.index % 2) == 0 )
+                <tr style="background-color: #f4f5f6">
+                    #else
+                <tr style="background-color: #e9ebec">
+                    #end
+                            <td>$item.ref</td>
+                            <td>$item.teacherLocality.libelle</td>
+                            <td>$item.groupOption</td>
+                            <td>$item.email</td>
+                            <td>$item.etatEtudiantSchedule.libelle</td>
+                            <td>$item.groupeEtude.libelle</td>
+                            <td>$item.packStudent.libelle</td>
+                            <td>$item.statutSocial.libelle</td>
+                            <td>$item.interetEtudiant.libelle</td>
+                            <td>$item.niveauEtude.libelle</td>
+                            <td>$item.skill.libelle</td>
+                            <td>$item.fonction.libelle</td>
+                            <td>$item.langue.libelle</td>
+                </tr>
+                #end
+
+
+        </tbody>
+    </table>
+    <br/><br/><br/><br/><br/><br/>
+
+    <div class="footer">
+        <p style="font-size: 25px">MERCI POUR VOTRE SERVICE!</p>
+        <p style="font-size: 18px">Si vous avez des questions, veillez contacter nous.</p>
+    </div>
+    <br/><br/>
+    <hr style="color:#c9302c ;height: 3px"></hr>
+</div>
+</body>
+</html>
+

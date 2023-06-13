@@ -1,0 +1,83 @@
+.quiz-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-header {
+  margin-bottom: 20px;
+}
+
+.quiz-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.question-card {
+  padding: 20px;
+}
+
+.question-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.question-answer {
+  margin-bottom: 20px;
+}
+
+.question-answer label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.question-nav {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.question-nav-button {
+  margin-right: 10px;
+}
+
+.prev-button {
+  margin-left: 0;
+}
+
+.next-button {
+  margin-right: 0;
+}
+
+.quiz-score {
+  margin-top: 20px;
+}
+
+.score-card-body {
+  text-align: center;
+}
+
+.score-card-body h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.score-card-body h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Customize styles for submit button */
+.question-nav-button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Hide questions when quiz is submitted */
+.quiz-body[quiz-submitted] .quiz-question {
+  display: none;
+}
+

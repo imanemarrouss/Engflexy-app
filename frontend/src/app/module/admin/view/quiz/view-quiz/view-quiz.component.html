@@ -1,0 +1,250 @@
+
+
+<div class="quiz-container">
+    <div class="quiz-header">
+        <p-card header="{{quiz.lib}}"  class="quiz-title"></p-card>
+    </div>
+
+    <div class="quiz-body" *ngIf="!quizSubmitted">
+        <div class="quiz-question">
+            <p-card class="question-card">
+                <div class="question-body">
+                    <div class="question-text">
+                        <p>{{ questions[currentQuestionIndex].libelle }}</p>
+                    </div>
+                    <div class="question-answer">
+                        <div [ngSwitch]="questions[currentQuestionIndex].typeDeQuestion.lib">
+                            <div *ngSwitchCase="'short_answer'">
+                                <input type="text" pInputText [(ngModel)]="questions[currentQuestionIndex].reponses" />
+                            </div>
+                            <div *ngSwitchCase="'checkbox'">
+                                <div *ngFor="let choice of questions[currentQuestionIndex].reponses; let i = index">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="selectedAnswers[currentQuestionIndex][i]" />
+                                        {{ choice.lib }}
+                                    </label>
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="'multiselect'">
+                                <div *ngFor="let choice of questions[currentQuestionIndex].reponses; let i = index">
+                                    <label>
+                                        <input type="radio" [(ngModel)]="selectedAnswers[currentQuestionIndex][i]" [value]="choice.lib" />
+                                        {{ choice.lib }}
+                                    </label>
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="'translate'">
+                                <div class="p-field">
+                                    <label>Translate the Phrase</label>
+                                </div>
+                                <div class="answer-section">
+                                    <label>Answer:</label>
+                                    <input type="text" pInputText placeholder="Enter answer" [(ngModel)]="translated">
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="'CORRECT_THE_MISTAKE'">
+                                <div class="correct-mistake-question">
+                                    <label>Correct the Mistake:</label>
+                                    <textarea class="answer-input"  rows="4" placeholder="Enter your corrected version" [(ngModel)]="mistake"></textarea>
+                                </div>
+                                </div>
+
+                            <div *ngSwitchCase="'TRUE_OR_FALSE'">
+                                <div class="true-false-question">
+                                    <p>{{ questions[currentQuestionIndex].libelle }}</p>
+                                    <div class="true-false-options">
+                                        <div class="true-option">
+                                            <input type="radio" id="trueOption" [(ngModel)]="selectedAnswers[currentQuestionIndex]" [value]="true">
+                                            <label for="trueOption">{{ questions[currentQuestionIndex].reponses[0].lib }}</label>
+                                        </div>
+                                        <div class="false-option">
+                                            <input type="radio" id="falseOption" [(ngModel)]="selectedAnswers[currentQuestionIndex]" [value]="false">
+                                            <label for="falseOption">{{ questions[currentQuestionIndex].reponses[1].lib }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="'PUT_WORDS_TO_GAP'">
+                                <div *ngFor="let choice of questions[currentQuestionIndex].reponses; let i = index">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="selectedAnswers[currentQuestionIndex][i]" />
+                                        {{ choice.lib }}
+                                    </label>
+                                </div>
+                            </div>
+
+
+
+
+                            <div *ngSwitchDefault>
+                                <p>Unsupported question type</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p-card>
+
+            <div class="question-nav">
+                <button pButton type="button" label="Previous" (click)="onPreviousClick()" [disabled]="currentQuestionIndex == 0"
+                        class="question-nav-button prev-button"></button>
+                <button pButton type="button" label="Submit" (click)="submitQuizz()" [disabled]="currentQuestionIndex < questions.length -1"
+                        class="question-nav-button next-button"></button>
+                <button pButton type="button" label="Next" (click)="onNextClick()" [disabled]="currentQuestionIndex == questions.length - 1"
+                        class="question-nav-button next-button"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-score" *ngIf="quizSubmitted">
+        <p-card>
+            <div class="score-card-body">
+                <h2>Your score:</h2>
+                <h1>{{score}}/{{maxScore}}</h1>
+                <button pButton type="button" label="View Corrected Quiz" (click)="showCorrectedQuiz = true"></button>
+
+            </div>
+        </p-card>
+    </div>
+    <div class="quiz-body" *ngIf="showCorrectedQuiz">
+        <div class="quiz-question" *ngFor="let question of questions">
+            <p-card class="question-card">
+                <div class="question-body">
+                    <div class="question-text">
+                        <p>{{ question.libelle }}</p>
+                    </div>
+                    <div class="question-answer">
+                        <div [ngSwitch]="question.typeDeQuestion.lib">
+                            <div *ngSwitchCase="'short_answer'">
+                                <input type="text" pInputText [disabled]="true" [ngModel]="question.reponses[0].lib" />
+                            </div>
+                            <div *ngSwitchCase="'CORRECT_THE_MISTAKE'">
+                                <div *ngFor="let choice of question.reponses">
+                                    <h4>Correct Answer:</h4>
+                                    <p>{{choice.etatReponse.libelle}}</p>
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="'translate'">
+                                <div *ngFor="let choice of question.reponses">
+                                    <h4>Correct Answer:</h4>
+                                    <p>{{choice.lib}}</p>
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="'checkbox'">
+                                <div *ngFor="let choice of question.reponses">
+                                    <label>
+                                        <input type="checkbox" [disabled]="true" [checked]="choice.etatReponse.libelle === 'correct'" />
+                                        {{ choice.lib }}
+                                    </label>
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="'PUT_WORDS_TO_GAP'">
+                                <div class="put-words-to-gap">
+                                    <div class="question-text">
+                                        <p>{{ question.libelle }}</p>
+                                    </div>
+                                    <div class="gap-section">
+                                        <p class="gap-text">
+                                            <!-- Display the sentence with a gap -->
+                                            The quick brown {{ question.libelle }} jumps over the lazy dog.
+                                        </p>
+                                        <div class="choices">
+                                            <div *ngFor="let choice of question.reponses; let i = index" [ngClass]="{ 'correct-choice': choice.etatReponse.libelle === 'correct', 'wrong-choice': choice.etatReponse.libelle === 'wrong' }">
+                                                <input type="checkbox" [disabled]="true" [checked]="selectedAnswers[currentQuestionIndex][i]">
+                                                <label>{{ choice.lib }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="'TRUE_OR_FALSE'">
+                                <div class="true-false-container">
+                                    <div class="true-false-option">
+                                        <input type="radio" [disabled]="true" [checked]="question.reponses[0].lib === 'True'">
+                                        <label>True</label>
+                                    </div>
+                                    <div class="true-false-option">
+                                        <input type="radio" [disabled]="true" [checked]="question.reponses[0].lib === 'False'">
+                                        <label>False</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="'multiselect'">
+                                <div *ngFor="let choice of question.reponses">
+                                    <label>
+                                        <input type="radio" [disabled]="true" [checked]="choice.etatReponse.libelle === 'correct'" />
+                                        {{ choice.lib }}
+                                    </label>
+                                </div>
+                            </div>
+                            <div *ngSwitchDefault>
+                                <p>Unsupported question type</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .true-false-question {
+        margin-top: 20px;
+    }
+
+    .true-false-question p {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .true-false-options {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .true-option,
+    .false-option {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+    }
+
+    .true-option input[type="radio"],
+    .false-option input[type="radio"] {
+        margin-right: 5px;
+    }
+
+    .true-option label,
+    .false-option label {
+        cursor: pointer;
+    }
+
+    .question-nav {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    correct-mistake-question {
+        margin-top: 20px;
+    }
+
+    .correct-mistake-question label {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .correct-mistake-question textarea {
+        width: 100%;
+        resize: vertical;
+    }
+
+    .question-nav {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+</style>

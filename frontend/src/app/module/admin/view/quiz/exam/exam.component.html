@@ -1,0 +1,783 @@
+<!--
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <p-card header="Quiz Title" [style]="{ 'width': '50rem', 'margin': 'auto' }">
+            <div class="mb-3">
+                <label  class="form-label fw-bold">Quiz Title</label>
+            </div>
+        </p-card>
+    </div>
+
+    <div class="p-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <ng-container *ngFor="let question of questions; let i = index">
+                    <p-card class="mt-4" [style]="{ 'width': '50rem', 'margin-left': '33rem','margin-top':'-24px' }">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="p-field">
+                                            <label for="question{{i}}">Question</label>
+                                            <input type="text" pInputText placeholder="Enter question" id="question{{i}}" [(ngModel)]="question.question">
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="p-field">
+                                            <label for="questionType{{i}}">Question Type</label>
+                                            <p-dropdown [options]="types" [(ngModel)]="question.type" id="questionType{{i}}" optionLabel="label" optionValue="value"></p-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="field">
+                                            <label>Points for Wrong Answer</label>
+                                            <p-inputNumber class="mb-2 mr-2" [(ngModel)]="question.pointFausse"></p-inputNumber>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="field">
+                                            <label>Points for Correct Answer</label>
+                                            <p-inputNumber class="mb-2 mr-2" [(ngModel)]="question.pointJuste"></p-inputNumber>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-field" *ngIf="question.type === 'checkbox'">
+                                    <label>Checkbox Options</label>
+                                    <div class="checkbox-options">
+                                        <div *ngFor="let choice of question.choices; let j = index">
+                                            <div class="p-inputgroup">
+                                                <span class="p-inputgroup-addon">
+                                                    <input type="checkbox" [(ngModel)]="isChecked[i][j]" >
+                                                </span>
+                                                <input type="text" pInputText placeholder="Option" [(ngModel)]="question.choices[j]" [value]="question.choices[j]" >
+                                                <button pButton type="button" icon="pi pi-minus" class="p-button-danger" (click)="removechoice(j,i)"></button>
+                                            </div>
+                                        </div>
+                                        <input placeholder="add option" (keydown.enter)="addchoice(i)">
+                                    </div>
+                                </div>
+
+                                <div class="p-field" *ngIf="question.type === 'multiselect'">
+                                    <div class="multiselect-options">
+                                        <div *ngFor="let choice of question.choices; let j = index">
+                                            <div class="p-inputgroup">
+
+                                                <span class="p-inputgroup-addon">
+                                                 <input type="radio" [value]="j" [(ngModel)]="selectedChoiceIndex">
+                                                </span>
+                                                <input type="text" pInputText placeholder="Option" [(ngModel)]="question.choices[j]">
+                                                <button pButton type="button" icon="pi pi-minus" class="p-button-danger" (click)="removechoice(j,i)"></button>
+                                            </div>
+                                        </div>
+                                        <input placeholder="add option" (keydown.enter)="addchoice(i)">
+                                        &lt;!&ndash;
+                                                                                <button pButton type="button" icon="pi pi-plus" (click)="addchoice(i)">Add Option</button>
+                                        &ndash;&gt;
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field" *ngIf="question.type === 'short_answer'">
+                                    <label>Short Answer</label>
+                                    <input type="text" pInputText placeholder="Enter answer" [(ngModel)]="question.answer">
+                                </div>
+                                <div class="p-field" *ngIf="question.type === 'paragraph'">
+                                    <textarea rows="5" cols="30" pInputTextarea ></textarea>
+                                </div>
+
+                            </div>
+                            <div class="col">
+                                <button pButton type="button" icon="pi pi-times" class="p-button-danger" [style]="{ 'background-color':'rgb(65 102 162)' }" (click)="onQuestionRemove(i)"></button>
+                            </div>
+                        </div>
+                    </p-card>
+
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <button pButton type="button" label="Add Question" class="p-button-raised p-button-primary" [style]="{ 'margin-top': '-12px','width': '47rem', 'margin-left': '459px', 'background-color':'rgb(65 102 162)' }" (click)="onAddQuestion()"></button>
+    </div>
+    <div class="row">
+        <button pButton type="button" label="Save Quiz" class="p-button-raised p-button-primary" [style]="{ 'margin-top': '-12px','width': '47rem', 'margin-left': '459px', 'background-color':'rgb(65 102 162)' }" (click)="saveQuiz()"></button>
+        <button pButton type="button" label="View Quiz" class="p-button-raised p-button-primary" [style]="{ 'margin-top': '-12px','width': '47rem', 'margin-left': '459px', 'background-color':'rgb(65 102 162)' }" (click)="viewQuiz()"></button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+<!--
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <p-card header="Quiz Title" [style]="{ 'width': '50rem', 'margin': 'auto' }">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Quiz Title</label>
+            </div>
+        </p-card>
+    </div>
+
+    <div class="p-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <ng-container *ngFor="let question of questions; let i = index">
+                    <p-card class="mt-4" [style]="{ 'width': '50rem', 'margin-left': '33rem','margin-top':'-24px' }">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <div class="p-field">
+                                            <label for="question{{i}}">Question</label>
+                                            <input type="text" pInputText placeholder="Enter question" id="question{{i}}" [(ngModel)]="question.question">
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="p-field">
+                                            <label for="questionType{{i}}">Question Type</label>
+                                            <p-dropdown [options]="types" [(ngModel)]="question.type" id="questionType{{i}}" optionLabel="label" optionValue="value"></p-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="field">
+                                            <label>Points for Wrong Answer</label>
+                                            <p-inputNumber  [(ngModel)]="question.pointFausse"></p-inputNumber>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="field">
+                                            <label>Points for Correct Answer</label>
+                                            <p-inputNumber  [(ngModel)]="question.pointJuste"></p-inputNumber>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-field" *ngIf="question.type === 'checkbox'">
+                                    <label>Checkbox Options</label>
+                                    <div class="checkbox-options">
+                                        <div *ngFor="let choice of question.choices; let j = index">
+                                            <div class="p-inputgroup">
+                                                <span class="p-inputgroup-addon">
+                                                    <input type="checkbox" [(ngModel)]="isChecked[i][j]">
+                                                </span>
+                                                <input type="text" pInputText placeholder="Option" [(ngModel)]="question.choices[j]" [value]="question.choices[j]">
+                                                <button pButton type="button" icon="pi pi-minus" class="p-button-danger" (click)="removechoice(j,i)"></button>
+                                            </div>
+                                        </div>
+                                        <input placeholder="add option" (keydown.enter)="addchoice(i)">
+                                    </div>
+                                </div>
+                                <div *ngIf="question.type === 'CORRECT_THE_MISTAKE'">
+                                    <h3>Correct the Mistake</h3>
+                                    <label>Wrong Sentence:</label>
+                                    <input type="text" [(ngModel)]="question.question" name="wrongSentence" placeholder="Enter the wrong sentence">
+
+                                    <label>Mistake:</label>
+                                    <input type="text" [(ngModel)]="newQuestion.mistake" name="mistake" placeholder="Describe the mistake">
+
+                                    <label>Correct Answer:</label>
+                                    <input type="text" [(ngModel)]="question.answer" name="correctAnswer" placeholder="Enter the correct answer">
+                                </div>
+
+                                <div class="p-field" *ngIf="question.type === 'multiselect'">
+                                    <div class="multiselect-options">
+                                        <div *ngFor="let choice of question.choices; let j = index">
+                                            <div class="p-inputgroup">
+                                                <span class="p-inputgroup-addon">
+                                                    <input type="radio" [value]="j" [(ngModel)]="selectedChoiceIndex">
+                                                </span>
+                                                <input type="text" pInputText placeholder="Option" [(ngModel)]="question.choices[j]">
+                                                <button pButton type="button" icon="pi pi-minus" class="p-button-danger" (click)="removechoice(j,i)"></button>
+                                            </div>
+                                        </div>
+                                        <input placeholder="add option" (keydown.enter)="addchoice(i)">
+                                    </div>
+                                </div>
+
+                                <div class="p-field" *ngIf="question.type === 'short_answer'">
+                                    <label>Short Answer</label>
+                                    <input type="text" pInputText placeholder="Enter answer" [(ngModel)]="question.answer">
+                                </div>
+                                <div class="p-field" *ngIf="question.type === 'paragraph'">
+                                    <textarea rows="5" cols="30" pInputTextarea></textarea>
+                                </div>
+
+                                &lt;!&ndash; PUT IN ORDER question type &ndash;&gt;
+                                <div *ngIf="question.type === 'PUT_IN_ORDER'">
+                                    <div class="question-section">
+                                        <label for="question">Question</label>
+                                        <textarea
+                                                id="question"
+                                                [(ngModel)]="newQuestion.question"
+                                                name="question"
+                                                rows="3"
+                                                required
+                                        ></textarea>
+                                    </div>
+
+                                    <div class="choices-section">
+                                        <label>Choices</label>
+                                        <div *ngFor="let choice of newQuestion.choices; let i = index">
+                                            <input
+                                                    type="text"
+                                                    [(ngModel)]="newQuestion.choices[i]"
+                                                    name="choice"
+                                                    required
+                                            />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                &lt;!&ndash; TRANSLATE THE PHRASE question type &ndash;&gt;
+                                <div *ngIf="question.type === 'translate'" class="question-section">
+                                    <div class="p-field">
+                                        <label>Translate the Phrase</label>
+                                        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="question.question"></textarea>
+                                    </div>
+                                    <div class="answer-section">
+                                        <label>Answer:</label>
+                                        <input type="text" pInputText placeholder="Enter answer" [(ngModel)]="newQuestion.answer">
+                                    </div>
+                                </div>
+
+                                &lt;!&ndash; WRITE_IT_UP question type &ndash;&gt;
+                                <div *ngIf="question.type === 'WRITE_IT_UP'" class="question-section">
+                                    <div class="p-field">
+                                        <label>Write It Up</label>
+                                        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="question.question"></textarea>
+                                    </div>
+                                    <div class="answer-section">
+                                        <label>Answer:</label>
+                                        <input type="text" pInputText placeholder="Enter answer" [(ngModel)]="newQuestion.answer">
+                                    </div>
+                                </div>
+
+                                &lt;!&ndash; PUT_WORDS_TO_GAP question type &ndash;&gt;
+                                <div *ngIf="question.type === 'PUT_WORDS_TO_GAP'" class="question-section">
+                                    <h3>Put Words to Gap</h3>
+                                    <div class="sentence-section">
+                                        <label>Sentence:</label>
+                                        <input type="text" [(ngModel)]="question.question" name="sentence" placeholder="Enter the sentence">
+                                    </div>
+                                    <div class="choices-section">
+                                        <label>Choices:</label>
+                                        <input type="text" [(ngModel)]="question.choices[0]" name="choice1" placeholder="Choice 1">
+                                        <input type="text" [(ngModel)]="question.choices[1]" name="choice2" placeholder="Choice 2">
+                                        <input type="text" [(ngModel)]="question.choices[2]" name="choice3" placeholder="Choice 3">
+                                    </div>
+                                    <div class="correct-choice-section">
+                                        <label>Correct Choice:</label>
+                                        <input type="text" [(ngModel)]="question.answer" name="correctChoice" placeholder="Enter the correct choice">
+                                    </div>
+                                </div>
+
+                            </div>
+                            </div>
+                            <div class="col">
+                                <button pButton type="button" icon="pi pi-times" class="p-button-danger" [style]="{ 'background-color':'rgb(65 102 162)' }" (click)="onQuestionRemove(i)"></button>
+                            </div>
+                    </p-card>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <button pButton type="button" label="Add Question" class="p-button-raised p-button-primary" [style]="{ 'margin-top': '-12px','width': '47rem', 'margin-left': '459px', 'background-color':'rgb(65 102 162)' }" (click)="onAddQuestion()"></button>
+    </div>
+
+    <div class="row">
+        <button pButton type="button" label="Save Quiz" class="p-button-raised p-button-primary" [style]="{ 'margin-top': '-12px','width': '47rem', 'margin-left': '459px', 'background-color':'rgb(65 102 162)' }" (click)="saveQuiz()"></button>
+        <button pButton type="button" label="View Quiz" class="p-button-raised p-button-primary" [style]="{ 'margin-top': '-12px','width': '47rem', 'margin-left': '459px', 'background-color':'rgb(65 102 162)' }" (click)="viewQuiz()"></button>
+    </div>
+</div>
+
+
+
+-->
+
+
+
+
+
+
+
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <p-card header="Quiz Title" [style]="{ 'width': '50rem', 'margin': 'auto' }" class="quiz-title-card">
+            <div class="mb-3">
+                <div class="input-group">
+                    <input type="text" pInputText placeholder="Enter title" [(ngModel)]="titre" class="form-control">
+                </div>
+            </div>
+        </p-card>
+    </div>
+
+    <div class="p-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <ng-container *ngFor="let question of questions; let i = index">
+                    <p-card class="mt-4 question-card" [style]="{ 'width': '50rem', 'margin': 'auto' }">
+                        <div class="row align-items-center">
+                            <div class="col-md-12">
+                                <div class="p-field">
+                                    <label for="question{{i}}">Question</label>
+                                    <input type="text" pInputText placeholder="Enter question" id="question{{i}}" [(ngModel)]="question.question">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="p-field">
+                                    <label for="questionType{{i}}">Question Type</label>
+                                    <p-dropdown [options]="types" [(ngModel)]="question.type" id="questionType{{i}}" optionLabel="label" optionValue="value"></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="field">
+                                    <label>Points for Wrong Answer</label>
+                                    <p-inputNumber [(ngModel)]="question.pointFausse"></p-inputNumber>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="field">
+                                    <label>Points for Correct Answer</label>
+                                    <p-inputNumber [(ngModel)]="question.pointJuste"></p-inputNumber>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Remaining question templates -->
+                        <div class="p-field" *ngIf="question.type === 'checkbox'">
+                            <label>Checkbox Options</label>
+                            <div class="checkbox-options">
+                                <div *ngFor="let choice of question.choices; let j = index">
+                                    <div class="p-inputgroup">
+                                                <span class="p-inputgroup-addon">
+                                                    <input type="checkbox" [(ngModel)]="isChecked[i][j]">
+                                                </span>
+                                        <input type="text" pInputText placeholder="Option" [(ngModel)]="question.choices[j]" [value]="question.choices[j]">
+                                        <button pButton type="button" icon="pi pi-minus" class="p-button-danger" (click)="removechoice(j,i)"></button>
+                                    </div>
+                                </div>
+                                <input placeholder="add option" (keydown.enter)="addchoice(i)">
+                            </div>
+                        </div>
+                        <div class="p-field" *ngIf="question.type === 'TRUE_OR_FALSE'">
+                            <label>Checkbox Options</label>
+                            <div class="checkbox-options">
+                                <div *ngFor="let choice of question.choices; let j = index">
+                                    <div class="p-inputgroup">
+                                                <span class="p-inputgroup-addon">
+                                                    <input type="checkbox" [(ngModel)]="isChecked[i][j]">
+                                                </span>
+                                        <input type="text" pInputText placeholder="Option" [(ngModel)]="question.choices[j]" [value]="question.choices[j]">
+                                        <button pButton type="button" icon="pi pi-minus" class="p-button-danger" (click)="removechoice(j,i)"></button>
+                                    </div>
+                                </div>
+                                <input placeholder="add option" (keydown.enter)="addchoice(i)">
+                            </div>
+                        </div>
+
+                        <div *ngIf="question.type === 'CORRECT_THE_MISTAKE'">
+
+                            <div class="p-grid p-dir-col">
+
+                                <div class="p-col">
+                                    <label>Mention The Mistake</label>
+                                    <div class="input-group">
+                                        <input type="text" pInputText placeholder="Describe the mistake" [(ngModel)]="newQuestion.mistake" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="p-col">
+                                    <label>Correct The Mistake</label>
+                                    <div class="input-group">
+                                        <input type="text" pInputText placeholder="Describe the mistake" [(ngModel)]="question.answer" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="p-field" *ngIf="question.type === 'multiselect'">
+                            <div class="multiselect-options">
+                                <div *ngFor="let choice of question.choices; let j = index">
+                                    <div class="p-inputgroup">
+                                                <span class="p-inputgroup-addon">
+                                                    <input type="radio" [value]="j" [(ngModel)]="selectedChoiceIndex">
+                                                </span>
+                                        <input type="text" pInputText placeholder="Option" [(ngModel)]="question.choices[j]">
+                                        <button pButton type="button" icon="pi pi-minus" class="p-button-danger" (click)="removechoice(j,i)"></button>
+                                    </div>
+                                </div>
+                                <input placeholder="add option" (keydown.enter)="addchoice(i)">
+                            </div>
+                        </div>
+
+                        <div class="p-field" *ngIf="question.type === 'short_answer'">
+                            <label>Short Answer</label>
+                            <input type="text" pInputText placeholder="Enter answer" [(ngModel)]="question.answer">
+                        </div>
+                        <div class="p-field" *ngIf="question.type === 'paragraph'">
+                            <textarea rows="5" cols="30" pInputTextarea></textarea>
+                        </div>
+
+                        <!-- PUT IN ORDER question type -->
+                        <div *ngIf="question.type === 'PUT_IN_ORDER'">
+                            <div class="question-section">
+                                <label for="question">Question</label>
+                                <textarea id="question" [(ngModel)]="newQuestion.question" name="question" rows="3" required></textarea>
+                            </div>
+
+                            <div class="choices-section">
+                                <label>Choices</label>
+                                <div class="sortable-list" cdkDropList (cdkDropListDropped)="reorderChoices($event)">
+                                    <div *ngFor="let choice of newQuestion.choices; let i = index" class="sortable-item" cdkDrag>
+                                        <div class="row align-items-center">
+                                            <div class="col-1 sortable-handle" cdkDragHandle>
+                                                <i class="bi bi-grip-vertical"></i>
+                                            </div>
+                                            <div class="col-11">
+                                                <input type="text" [(ngModel)]="newQuestion.choices[i]" name="choice" class="form-control" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- TRANSLATE THE PHRASE question type -->
+                        <div *ngIf="question.type === 'translate'" class="question-section">
+                            <div class="p-field">
+                                <label>Translate the Phrase</label>
+                                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="newQuestion.answer"></textarea>
+                            </div>
+
+                        </div>
+
+                        <!-- WRITE_IT_UP question type -->
+                        <div *ngIf="question.type === 'WRITE_IT_UP'" class="question-section">
+                            <div class="p-field">
+                                <label>Write It Up</label>
+                                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="question.question"></textarea>
+                            </div>
+                            <div class="answer-section">
+                                <label>Answer:</label>
+                                <input type="text" pInputText placeholder="Enter answer" [(ngModel)]="newQuestion.answer">
+                            </div>
+                        </div>
+
+                        <!-- PUT_WORDS_TO_GAP question type -->
+
+                            <div class="p-field" *ngIf="question.type === 'PUT_WORDS_TO_GAP'">
+                                <label>Put Words to Gap</label>
+                                <div class="checkbox-options">
+                                    <div *ngFor="let choice of question.choices; let j = index">
+                                        <div class="p-inputgroup">
+                                                <span class="p-inputgroup-addon">
+                                                    <input type="checkbox" [(ngModel)]="isChecked[i][j]">
+                                                </span>
+                                            <input type="text" pInputText placeholder="Option" [(ngModel)]="question.choices[j]" [value]="question.choices[j]">
+                                            <button pButton type="button" icon="pi pi-minus" class="p-button-danger" (click)="removechoice(j,i)"></button>
+                                        </div>
+                                    </div>
+                                    <input placeholder="add choice" (keydown.enter)="addchoice(i)">
+                                </div>
+                            </div>
+                        <div class="col">
+                            <button pButton type="button" label="Delete Question" icon="pi pi-times" class="p-button-danger" [style]="{ 'background-color':'rgb(65 102 162)' }" (click)="onQuestionRemove(i)"></button>
+                        </div>
+
+                    </p-card>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4" [style]="{ 'width': '50rem', 'margin': 'auto' }" >
+        <button pButton type="button" label="Add Question" class="p-button-success" [style]="{ 'background-color':'rgb(65 102 162)' }" (click)="onAddQuestion()"></button>
+        <button pButton type="button" label="Save Quiz" class="p-button-success" [style]="{ 'background-color':'rgb(65 102 162)' }" (click)="saveQuiz()"></button>
+        <button pButton type="button" label="View Quiz" class="p-button-success" [style]="{ 'background-color':'rgb(65 102 162)' }" (click)="viewQuiz()"></button>
+    </div>
+
+</div>
+
+
+
+
+
+
+<!--
+
+<style>
+    .quiz-title-card {
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .question-card {
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        padding: 1rem;
+    }
+
+    .field {
+        margin-bottom: 1rem;
+    }
+
+    .sortable-list {
+        cursor: move;
+    }
+
+    .list-group-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .list-group-item i {
+        cursor: move;
+        margin-right: 10px;
+    }
+
+    .input-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .input-group {
+        margin-bottom: 10px;
+    }
+
+    .correct-mistake-section h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .correct-mistake-section .p-field {
+        margin-bottom: 1rem;
+    }
+
+    .correct-mistake-section .p-field label {
+        font-weight: bold;
+    }
+
+    .correct-mistake-section .p-field input {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .correct-mistake-section .p-field input::placeholder {
+        color: #999;
+    }
+
+    .correct-mistake-section .p-field input:focus {
+        outline: none;
+        border-color: #66afe9;
+        box-shadow: 0 0 5px #66afe9;
+    }
+    /* Styling for TRUE_OR_FALSE section */
+    .true-false-section {
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .true-false-section h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .true-false-section .p-field {
+        margin-bottom: 1rem;
+    }
+
+    .true-false-section .checkbox-options {
+        margin-bottom: 1rem;
+    }
+
+    .true-false-section .checkbox-options .p-inputgroup {
+        display: flex;
+        align-items: center;
+    }
+
+    .true-false-section .checkbox-options .p-inputgroup-addon {
+        margin-right: 0.5rem;
+    }
+
+    .true-false-section .checkbox-options .p-inputgroup input[type="checkbox"] {
+        margin-right: 0.5rem;
+    }
+
+    .true-false-section .checkbox-options input[type="text"] {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .true-false-section .checkbox-options input[type="text"]::placeholder {
+        color: #999;
+    }
+
+    .true-false-section .checkbox-options input[type="text"]:focus {
+        outline: none;
+        border-color: #66afe9;
+        box-shadow: 0 0 5px #66afe9;
+    }
+
+    .true-false-section .checkbox-options .p-button-danger {
+        margin-left: 0.5rem;
+    }
+
+    .true-false-section .checkbox-options input[placeholder="add option"] {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-top: 0.5rem;
+    }
+
+    .true-false-section .checkbox-options input[placeholder="add option"]:focus {
+        outline: none;
+        border-color: #66afe9;
+        box-shadow: 0 0 5px #66afe9;
+    }
+
+    /* Styling for CORRECT_THE_MISTAKE section */
+    .correct-mistake-section {
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .correct-mistake-section h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .correct-mistake-section .p-field {
+        margin-bottom: 1rem;
+    }
+
+    .correct-mistake-section .p-field label {
+        font-weight: bold;
+    }
+
+    .correct-mistake-section .p-field input {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .correct-mistake-section .p-field input::placeholder {
+        color: #999;
+    }
+
+    .correct-mistake-section .p-field input:focus {
+        outline: none;
+        border-color: #66afe9;
+        box-shadow: 0 0 5px #66afe9;
+    }
+
+    /* Styling for translate section */
+    .translate-section {
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .translate-section .p-field {
+        margin-bottom: 1rem;
+    }
+
+    .translate-section .p-field label {
+        font-weight: bold;
+    }
+
+    .translate-section textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .translate-section textarea:focus {
+        outline: none;
+        border-color: #66afe9;
+        box-shadow: 0 0 5px #66afe9;
+    }
+
+    .translate-section .answer-section {
+        margin-top: 1rem;
+    }
+
+    .translate-section .answer-section label {
+        font-weight: bold;
+    }
+
+    .translate-section .answer-section input[type="text"] {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .translate-section .answer-section input[type="text"]::placeholder {
+        color: #999;
+    }
+
+    .translate-section .answer-section input[type="text"]:focus {
+        outline: none;
+        border-color: #66afe9;
+        box-shadow: 0 0 5px #66afe9;
+    }
+
+
+
+
+</style>
+-->
+
+
+
+
+
+
+
+
+
