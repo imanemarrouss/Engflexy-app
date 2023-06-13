@@ -1,14 +1,17 @@
 package  ma.zsmart.engflexy.ws.converter;
 
-import ma.zsmart.engflexy.bean.core.CategorieSection;
-import ma.zsmart.engflexy.bean.core.SuperCategorieSection;
-import ma.zsmart.engflexy.bean.history.CategorieSectionHistory;
-import ma.zsmart.engflexy.ws.dto.CategorieSectionDto;
-import ma.zsmart.engflexy.zynerator.converter.AbstractConverter;
-import ma.zsmart.engflexy.zynerator.util.ListUtil;
-import ma.zsmart.engflexy.zynerator.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ma.zsmart.engflexy.zynerator.util.ListUtil;
+
+import ma.zsmart.engflexy.bean.core.SuperCategorieSection;
+
+import ma.zsmart.engflexy.zynerator.util.StringUtil;
+import ma.zsmart.engflexy.zynerator.converter.AbstractConverter;
+import ma.zsmart.engflexy.zynerator.util.DateUtil;
+import ma.zsmart.engflexy.bean.history.CategorieSectionHistory;
+import ma.zsmart.engflexy.bean.core.CategorieSection;
+import ma.zsmart.engflexy.ws.dto.CategorieSectionDto;
 
 @Component
 public class CategorieSectionConverter extends AbstractConverter<CategorieSection, CategorieSectionDto, CategorieSectionHistory> {
@@ -36,7 +39,7 @@ public class CategorieSectionConverter extends AbstractConverter<CategorieSectio
         if (dto == null) {
             return null;
         } else {
-        CategorieSection item = new CategorieSection();
+            CategorieSection item = new CategorieSection();
             if(StringUtil.isNotEmpty(dto.getId()))
                 item.setId(dto.getId());
             if(StringUtil.isNotEmpty(dto.getCode()))
@@ -52,9 +55,10 @@ public class CategorieSectionConverter extends AbstractConverter<CategorieSectio
 
 
             if(this.sections && ListUtil.isNotEmpty(dto.getSections()))
-                item.setSections(sectionConverter.toItem(dto.getSections()));
+                /*item.setSections(sectionConverter.toItem(dto.getSections()));*/
+                dto.setId(item.getId());
 
-        return item;
+            return item;
         }
     }
 
@@ -72,27 +76,27 @@ public class CategorieSectionConverter extends AbstractConverter<CategorieSectio
                 dto.setLibelle(item.getLibelle());
             if(StringUtil.isNotEmpty(item.getNumeroOrder()))
                 dto.setNumeroOrder(item.getNumeroOrder());
-        if(this.superCategorieSection && item.getSuperCategorieSection()!=null) {
-            dto.setSuperCategorieSection(superCategorieSectionConverter.toDto(item.getSuperCategorieSection())) ;
-        }
-        if(this.sections && ListUtil.isNotEmpty(item.getSections())){
-            sectionConverter.init(true);
+            if(this.superCategorieSection && item.getSuperCategorieSection()!=null) {
+                dto.setSuperCategorieSection(superCategorieSectionConverter.toDto(item.getSuperCategorieSection())) ;
+            }
+            if(this.sections && ListUtil.isNotEmpty(item.getSections())){
+            /*sectionConverter.init(true);
             sectionConverter.setCategorieSection(false);
             dto.setSections(sectionConverter.toDto(item.getSections()));
-            sectionConverter.setCategorieSection(true);
+            sectionConverter.setCategorieSection(true);*/
+                dto.setId(item.getId());
 
-        }
+            }
 
 
-        return dto;
+            return dto;
         }
     }
 
-    @Override
     public void initList(boolean value) {
         this.sections = value;
     }
-    @Override
+
     public void initObject(boolean value) {
         this.superCategorieSection = value;
     }

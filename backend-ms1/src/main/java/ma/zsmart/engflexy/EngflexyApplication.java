@@ -410,7 +410,7 @@ public class EngflexyApplication {
             item.setDescription(fakeString(description, i));
             item.setImage(fakeString(image, i));
             item.setNombreSectionFinalise(fakeInteger(nombreSectionFinalise, i));
-            item.setNombreSectionEnCours(fakeInteger(nombreSectionEnCours, i));
+            item.setNombreSectionEnCours(fakeLong(nombreSectionEnCours, i));
             item.setNombreLinkEnCours(fakeInteger(nombreLinkEnCours, i));
             item.setNombreLinkFinalise(fakeInteger(nombreLinkFinalise, i));
             item.setNumeroOrder(fakeInteger(numeroOrder, i));

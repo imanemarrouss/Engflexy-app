@@ -10,8 +10,8 @@ import {VocabularyQuizService} from 'src/app/controller/service/VocabularyQuiz.s
 import {SectionDto} from 'src/app/controller/model/Section.model';
 import {SectionService} from 'src/app/controller/service/Section.service';
 @Component({
-  selector: 'app-vocabulary-create-admin',
-  templateUrl: './vocabulary-create-admin.component.html'
+    selector: 'app-vocabulary-create-admin',
+    templateUrl: './vocabulary-create-admin.component.html'
 })
 export class VocabularyCreateAdminComponent extends AbstractCreateController<VocabularyDto, VocabularyCriteria, VocabularyService>  implements OnInit {
 
@@ -25,11 +25,11 @@ export class VocabularyCreateAdminComponent extends AbstractCreateController<Voc
     }
 
     ngOnInit(): void {
-    this.section = new SectionDto();
-    this.sectionService.findAll().subscribe((data) => this.sections = data);
-    this.vocabularyQuiz = new VocabularyQuizDto();
-    this.vocabularyQuizService.findAll().subscribe((data) => this.vocabularyQuizs = data);
-}
+        this.section = new SectionDto();
+        this.sectionService.findAll().subscribe((data) => this.sections = data);
+        this.vocabularyQuiz = new VocabularyQuizDto();
+        this.vocabularyQuizService.findAll().subscribe((data) => this.vocabularyQuizs = data);
+    }
 
 
 
@@ -47,26 +47,26 @@ export class VocabularyCreateAdminComponent extends AbstractCreateController<Voc
 
 
     public async openCreateVocabularyQuiz(vocabularyQuiz: string) {
-    const isPermistted = await this.roleService.isPermitted('VocabularyQuiz', 'add');
-    if(isPermistted) {
-         this.vocabularyQuiz = new VocabularyQuizDto();
-         this.createVocabularyQuizDialog = true;
-    }else{
-        this.messageService.add({
-        severity: 'error', summary: 'erreur', detail: 'problème de permission'
-        });
-     }
+        const isPermistted = await this.roleService.isPermitted('VocabularyQuiz', 'add');
+        if(isPermistted) {
+            this.vocabularyQuiz = new VocabularyQuizDto();
+            this.createVocabularyQuizDialog = true;
+        }else{
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème de permission'
+            });
+        }
     }
     public async openCreateSection(section: string) {
-    const isPermistted = await this.roleService.isPermitted('Section', 'add');
-    if(isPermistted) {
-         this.section = new SectionDto();
-         this.createSectionDialog = true;
-    }else{
-        this.messageService.add({
-        severity: 'error', summary: 'erreur', detail: 'problème de permission'
-        });
-     }
+        const isPermistted = await this.roleService.isPermitted('Section', 'add');
+        if(isPermistted) {
+            this.section = new SectionDto();
+            this.createSectionDialog = true;
+        }else{
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème de permission'
+            });
+        }
     }
 
     get vocabularyQuiz(): VocabularyQuizDto {
@@ -82,7 +82,7 @@ export class VocabularyCreateAdminComponent extends AbstractCreateController<Voc
         this.vocabularyQuizService.items = value;
     }
     get createVocabularyQuizDialog(): boolean {
-       return this.vocabularyQuizService.createDialog;
+        return this.vocabularyQuizService.createDialog;
     }
     set createVocabularyQuizDialog(value: boolean) {
         this.vocabularyQuizService.createDialog= value;
@@ -100,7 +100,7 @@ export class VocabularyCreateAdminComponent extends AbstractCreateController<Voc
         this.sectionService.items = value;
     }
     get createSectionDialog(): boolean {
-       return this.sectionService.createDialog;
+        return this.sectionService.createDialog;
     }
     set createSectionDialog(value: boolean) {
         this.sectionService.createDialog= value;

@@ -74,7 +74,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { MessageModule } from 'primeng/message';
 import {MessagesModule} from 'primeng/messages';
 import {PaginatorModule} from 'primeng/paginator';
-
+import { ListboxModule } from 'primeng/listbox';
+import { ImageModule } from 'primeng/image';
 
 
 @NgModule({
@@ -154,6 +155,8 @@ import {PaginatorModule} from 'primeng/paginator';
     PaginatorModule,
     TranslateModule,
     FileUploadModule,
+    ListboxModule,
+    ImageModule,
   ],
   exports: [
   ParcoursCreateAdminComponent,

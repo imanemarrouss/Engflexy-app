@@ -13,8 +13,8 @@ import {VocabularyService} from 'src/app/controller/service/Vocabulary.service';
 import {SectionDto} from 'src/app/controller/model/Section.model';
 import {SectionService} from 'src/app/controller/service/Section.service';
 @Component({
-  selector: 'app-vocabulary-quiz-view-admin',
-  templateUrl: './vocabulary-quiz-view-admin.component.html'
+    selector: 'app-vocabulary-quiz-view-admin',
+    templateUrl: './vocabulary-quiz-view-admin.component.html'
 })
 export class VocabularyQuizViewAdminComponent extends AbstractViewController<VocabularyQuizDto, VocabularyQuizCriteria, VocabularyQuizService> implements OnInit {
 
@@ -34,13 +34,13 @@ export class VocabularyQuizViewAdminComponent extends AbstractViewController<Voc
 
 
     get section(): SectionDto {
-       return this.sectionService.item;
+        return this.sectionService.item;
     }
     set section(value: SectionDto) {
         this.sectionService.item = value;
     }
     get sections():Array<SectionDto> {
-       return this.sectionService.items;
+        return this.sectionService.items;
     }
     set sections(value: Array<SectionDto>) {
         this.sectionService.items = value;

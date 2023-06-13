@@ -26,8 +26,8 @@ import {HomeWorkEtudiantService} from 'src/app/controller/service/HomeWorkEtudia
 import {TypeHomeWorkDto} from 'src/app/controller/model/TypeHomeWork.model';
 import {TypeHomeWorkService} from 'src/app/controller/service/TypeHomeWork.service';
 @Component({
-  selector: 'app-cours-create-admin',
-  templateUrl: './cours-create-admin.component.html'
+    selector: 'app-cours-create-admin',
+    templateUrl: './cours-create-admin.component.html'
 })
 export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto, CoursCriteria, CoursService>  implements OnInit {
 
@@ -35,8 +35,8 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
     private _homeWorksElement = new HomeWorkDto();
 
 
-   private _validCoursCode = true;
-   private _validCoursLibelle = true;
+    private _validCoursCode = true;
+    private _validCoursLibelle = true;
     private _validEtatCoursCode = true;
     private _validEtatCoursLibelle = true;
     private _validParcoursCode = true;
@@ -55,11 +55,11 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
         this.sessionCoursService.findAll().subscribe((data) => this.sessionCourss = data);
         this.homeWorksElement.typeHomeWork = new TypeHomeWorkDto();
         this.typeHomeWorkService.findAll().subscribe((data) => this.typeHomeWorks = data);
-    this.etatCours = new EtatCoursDto();
-    this.etatCoursService.findAll().subscribe((data) => this.etatCourss = data);
-    this.parcours = new ParcoursDto();
-    this.parcoursService.findAll().subscribe((data) => this.parcourss = data);
-}
+        this.etatCours = new EtatCoursDto();
+        this.etatCoursService.findAll().subscribe((data) => this.etatCourss = data);
+        this.parcours = new ParcoursDto();
+        this.parcoursService.findAll().subscribe((data) => this.parcourss = data);
+    }
 
 
 
@@ -83,13 +83,13 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
     public addSections() {
         if( this.item.sections == null )
             this.item.sections = new Array<SectionDto>();
-       this.validateSections();
-       if (this.errorMessages.length === 0) {
-              this.item.sections.push({... this.sectionsElement});
-              this.sectionsElement = new SectionDto();
-       }else{
+        this.validateSections();
+        if (this.errorMessages.length === 0) {
+            this.item.sections.push({... this.sectionsElement});
+            this.sectionsElement = new SectionDto();
+        }else{
             this.messageService.add({severity: 'error',summary: 'Erreurs',detail: 'Merci de corrigé les erreurs suivant : ' + this.errorMessages});
-       }
+        }
     }
 
 
@@ -106,13 +106,13 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
     public addHomeWorks() {
         if( this.item.homeWorks == null )
             this.item.homeWorks = new Array<HomeWorkDto>();
-       this.validateHomeWorks();
-       if (this.errorMessages.length === 0) {
-              this.item.homeWorks.push({... this.homeWorksElement});
-              this.homeWorksElement = new HomeWorkDto();
-       }else{
+        this.validateHomeWorks();
+        if (this.errorMessages.length === 0) {
+            this.item.homeWorks.push({... this.homeWorksElement});
+            this.homeWorksElement = new HomeWorkDto();
+        }else{
             this.messageService.add({severity: 'error',summary: 'Erreurs',detail: 'Merci de corrigé les erreurs suivant : ' + this.errorMessages});
-       }
+        }
     }
 
 
@@ -136,16 +136,16 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
 
     public validateCoursCode(){
         if (this.stringUtilService.isEmpty(this.item.code)) {
-        this.errorMessages.push('Code non valide');
-        this.validCoursCode = false;
+            this.errorMessages.push('Code non valide');
+            this.validCoursCode = false;
         } else {
             this.validCoursCode = true;
         }
     }
     public validateCoursLibelle(){
         if (this.stringUtilService.isEmpty(this.item.libelle)) {
-        this.errorMessages.push('Libelle non valide');
-        this.validCoursLibelle = false;
+            this.errorMessages.push('Libelle non valide');
+            this.validCoursLibelle = false;
         } else {
             this.validCoursLibelle = true;
         }
@@ -169,37 +169,37 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
     }
 
     public async openCreateEtatCours(etatCours: string) {
-    const isPermistted = await this.roleService.isPermitted('EtatCours', 'add');
-    if(isPermistted) {
-         this.etatCours = new EtatCoursDto();
-         this.createEtatCoursDialog = true;
-    }else{
-        this.messageService.add({
-        severity: 'error', summary: 'erreur', detail: 'problème de permission'
-        });
-     }
+        const isPermistted = await this.roleService.isPermitted('EtatCours', 'add');
+        if(isPermistted) {
+            this.etatCours = new EtatCoursDto();
+            this.createEtatCoursDialog = true;
+        }else{
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème de permission'
+            });
+        }
     }
     public async openCreateParcours(parcours: string) {
-    const isPermistted = await this.roleService.isPermitted('Parcours', 'add');
-    if(isPermistted) {
-         this.parcours = new ParcoursDto();
-         this.createParcoursDialog = true;
-    }else{
-        this.messageService.add({
-        severity: 'error', summary: 'erreur', detail: 'problème de permission'
-        });
-     }
+        const isPermistted = await this.roleService.isPermitted('Parcours', 'add');
+        if(isPermistted) {
+            this.parcours = new ParcoursDto();
+            this.createParcoursDialog = true;
+        }else{
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème de permission'
+            });
+        }
     }
     public async openCreateCategorieSection(categorieSection: string) {
-    const isPermistted = await this.roleService.isPermitted('CategorieSection', 'add');
-    if(isPermistted) {
-         this.categorieSection = new CategorieSectionDto();
-         this.createCategorieSectionDialog = true;
-    }else{
-        this.messageService.add({
-        severity: 'error', summary: 'erreur', detail: 'problème de permission'
-        });
-     }
+        const isPermistted = await this.roleService.isPermitted('CategorieSection', 'add');
+        if(isPermistted) {
+            this.categorieSection = new CategorieSectionDto();
+            this.createCategorieSectionDialog = true;
+        }else{
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème de permission'
+            });
+        }
     }
 
     get typeHomeWork(): TypeHomeWorkDto {
@@ -215,7 +215,7 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
         this.typeHomeWorkService.items = value;
     }
     get createTypeHomeWorkDialog(): boolean {
-       return this.typeHomeWorkService.createDialog;
+        return this.typeHomeWorkService.createDialog;
     }
     set createTypeHomeWorkDialog(value: boolean) {
         this.typeHomeWorkService.createDialog= value;
@@ -233,7 +233,7 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
         this.etatCoursService.items = value;
     }
     get createEtatCoursDialog(): boolean {
-       return this.etatCoursService.createDialog;
+        return this.etatCoursService.createDialog;
     }
     set createEtatCoursDialog(value: boolean) {
         this.etatCoursService.createDialog= value;
@@ -251,7 +251,7 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
         this.parcoursService.items = value;
     }
     get createParcoursDialog(): boolean {
-       return this.parcoursService.createDialog;
+        return this.parcoursService.createDialog;
     }
     set createParcoursDialog(value: boolean) {
         this.parcoursService.createDialog= value;
@@ -269,7 +269,7 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
         this.categorieSectionService.items = value;
     }
     get createCategorieSectionDialog(): boolean {
-       return this.categorieSectionService.createDialog;
+        return this.categorieSectionService.createDialog;
     }
     set createCategorieSectionDialog(value: boolean) {
         this.categorieSectionService.createDialog= value;
@@ -287,7 +287,7 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
         this.sessionCoursService.items = value;
     }
     get createSessionCoursDialog(): boolean {
-       return this.sessionCoursService.createDialog;
+        return this.sessionCoursService.createDialog;
     }
     set createSessionCoursDialog(value: boolean) {
         this.sessionCoursService.createDialog= value;
@@ -300,14 +300,14 @@ export class CoursCreateAdminComponent extends AbstractCreateController<CoursDto
     }
 
     set validCoursCode(value: boolean) {
-         this._validCoursCode = value;
+        this._validCoursCode = value;
     }
     get validCoursLibelle(): boolean {
         return this._validCoursLibelle;
     }
 
     set validCoursLibelle(value: boolean) {
-         this._validCoursLibelle = value;
+        this._validCoursLibelle = value;
     }
 
     get validEtatCoursCode(): boolean {

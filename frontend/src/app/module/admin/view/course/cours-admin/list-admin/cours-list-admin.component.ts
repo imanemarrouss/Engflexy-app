@@ -15,8 +15,8 @@ import {HomeWorkDto} from 'src/app/controller/model/HomeWork.model';
 
 
 @Component({
-  selector: 'app-cours-list-admin',
-  templateUrl: './cours-list-admin.component.html'
+    selector: 'app-cours-list-admin',
+    templateUrl: './cours-list-admin.component.html'
 })
 export class CoursListAdminComponent extends AbstractListController<CoursDto, CoursCriteria, CoursService>  implements OnInit {
 
@@ -24,24 +24,24 @@ export class CoursListAdminComponent extends AbstractListController<CoursDto, Co
 
     etatCourss :Array<EtatCoursDto>;
     parcourss :Array<ParcoursDto>;
-  
+
     constructor(coursService: CoursService, private etatCoursService: EtatCoursService, private parcoursService: ParcoursService) {
         super(coursService);
     }
 
     ngOnInit() : void {
-      this.findPaginatedByCriteria();
-      this.initExport();
-      this.initCol();
-      this.loadEtatCours();
-      this.loadParcours();
+        this.findPaginatedByCriteria();
+        this.initExport();
+        this.initCol();
+        this.loadEtatCours();
+        this.loadParcours();
     }
 
     public async loadCourss(){
         await this.roleService.findAll();
         const isPermistted = await this.roleService.isPermitted('Cours', 'list');
         isPermistted ? this.service.findAll().subscribe(courss => this.items = courss,error=>console.log(error))
-        : this.messageService.add({severity: 'error', summary: 'erreur', detail: 'problème d\'autorisation'});
+            : this.messageService.add({severity: 'error', summary: 'erreur', detail: 'problème d\'autorisation'});
     }
 
 
@@ -65,38 +65,38 @@ export class CoursListAdminComponent extends AbstractListController<CoursDto, Co
         await this.roleService.findAll();
         const isPermistted = await this.roleService.isPermitted('Cours', 'list');
         isPermistted ? this.etatCoursService.findAllOptimized().subscribe(etatCourss => this.etatCourss = etatCourss,error=>console.log(error))
-        : this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Problème de permission'});
+            : this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Problème de permission'});
     }
     public async loadParcours(){
         await this.roleService.findAll();
         const isPermistted = await this.roleService.isPermitted('Cours', 'list');
         isPermistted ? this.parcoursService.findAllOptimized().subscribe(parcourss => this.parcourss = parcourss,error=>console.log(error))
-        : this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Problème de permission'});
+            : this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Problème de permission'});
     }
 
-	public initDuplicate(res: CoursDto) {
+    public initDuplicate(res: CoursDto) {
         if (res.sections != null) {
-             res.sections.forEach(d => { d.cours = null; d.id = null; });
+            res.sections.forEach(d => { d.cours = null; d.id = null; });
         }
         if (res.homeWorks != null) {
-             res.homeWorks.forEach(d => { d.cours = null; d.id = null; });
+            res.homeWorks.forEach(d => { d.cours = null; d.id = null; });
         }
-	}
+    }
 
-   public prepareColumnExport() : void {
+    public prepareColumnExport() : void {
         this.exportData = this.items.map(e => {
             return {
-                 'Code': e.code ,
-                 'Libelle': e.libelle ,
-                 'Description': e.description ,
-                 'Image': e.image ,
+                'Code': e.code ,
+                'Libelle': e.libelle ,
+                'Description': e.description ,
+                'Image': e.image ,
                 'Etat cours': e.etatCours?.libelle ,
                 'Parcours': e.parcours?.libelle ,
-                 'Nombre section finalise': e.nombreSectionFinalise ,
-                 'Nombre section en cours': e.nombreSectionEnCours ,
-                 'Nombre link en cours': e.nombreLinkEnCours ,
-                 'Nombre link finalise': e.nombreLinkFinalise ,
-                 'Numero order': e.numeroOrder ,
+                'Nombre section finalise': e.nombreSectionFinalise ,
+                'Nombre section en cours': e.nombreSectionEnCours ,
+                'Nombre link en cours': e.nombreLinkEnCours ,
+                'Nombre link finalise': e.nombreLinkFinalise ,
+                'Numero order': e.numeroOrder ,
             }
         });
 
@@ -105,8 +105,8 @@ export class CoursListAdminComponent extends AbstractListController<CoursDto, Co
             'Libelle': this.criteria.libelle ? this.criteria.libelle : environment.emptyForExport ,
             'Description': this.criteria.description ? this.criteria.description : environment.emptyForExport ,
             'Image': this.criteria.image ? this.criteria.image : environment.emptyForExport ,
-        //'Etat cours': this.criteria.etatCours?.libelle ? this.criteria.etatCours?.libelle : environment.emptyForExport ,
-        //'Parcours': this.criteria.parcours?.libelle ? this.criteria.parcours?.libelle : environment.emptyForExport ,
+            //'Etat cours': this.criteria.etatCours?.libelle ? this.criteria.etatCours?.libelle : environment.emptyForExport ,
+            //'Parcours': this.criteria.parcours?.libelle ? this.criteria.parcours?.libelle : environment.emptyForExport ,
             'Nombre section finalise Min': this.criteria.nombreSectionFinaliseMin ? this.criteria.nombreSectionFinaliseMin : environment.emptyForExport ,
             'Nombre section finalise Max': this.criteria.nombreSectionFinaliseMax ? this.criteria.nombreSectionFinaliseMax : environment.emptyForExport ,
             'Nombre section en cours Min': this.criteria.nombreSectionEnCoursMin ? this.criteria.nombreSectionEnCoursMin : environment.emptyForExport ,
@@ -118,5 +118,5 @@ export class CoursListAdminComponent extends AbstractListController<CoursDto, Co
             'Numero order Min': this.criteria.numeroOrderMin ? this.criteria.numeroOrderMin : environment.emptyForExport ,
             'Numero order Max': this.criteria.numeroOrderMax ? this.criteria.numeroOrderMax : environment.emptyForExport ,
         }];
-      }
+    }
 }

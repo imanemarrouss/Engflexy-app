@@ -10,15 +10,15 @@ import {VocabularyService} from 'src/app/controller/service/Vocabulary.service';
 import {SectionDto} from 'src/app/controller/model/Section.model';
 import {SectionService} from 'src/app/controller/service/Section.service';
 @Component({
-  selector: 'app-vocabulary-quiz-create-admin',
-  templateUrl: './vocabulary-quiz-create-admin.component.html'
+    selector: 'app-vocabulary-quiz-create-admin',
+    templateUrl: './vocabulary-quiz-create-admin.component.html'
 })
 export class VocabularyQuizCreateAdminComponent extends AbstractCreateController<VocabularyQuizDto, VocabularyQuizCriteria, VocabularyQuizService>  implements OnInit {
 
     private _vocabularysElement = new VocabularyDto();
 
 
-   private _validVocabularyQuizLibelle = true;
+    private _validVocabularyQuizLibelle = true;
     private _validSectionCode = true;
 
     constructor( private vocabularyQuizService: VocabularyQuizService , private vocabularyService: VocabularyService, private sectionService: SectionService) {
@@ -28,9 +28,9 @@ export class VocabularyQuizCreateAdminComponent extends AbstractCreateController
     ngOnInit(): void {
         this.vocabularysElement.section = new SectionDto();
         this.sectionService.findAll().subscribe((data) => this.sections = data);
-    this.section = new SectionDto();
-    this.sectionService.findAll().subscribe((data) => this.sections = data);
-}
+        this.section = new SectionDto();
+        this.sectionService.findAll().subscribe((data) => this.sections = data);
+    }
 
 
 
@@ -46,13 +46,13 @@ export class VocabularyQuizCreateAdminComponent extends AbstractCreateController
     public addVocabularys() {
         if( this.item.vocabularys == null )
             this.item.vocabularys = new Array<VocabularyDto>();
-       this.validateVocabularys();
-       if (this.errorMessages.length === 0) {
-              this.item.vocabularys.push({... this.vocabularysElement});
-              this.vocabularysElement = new VocabularyDto();
-       }else{
+        this.validateVocabularys();
+        if (this.errorMessages.length === 0) {
+            this.item.vocabularys.push({... this.vocabularysElement});
+            this.vocabularysElement = new VocabularyDto();
+        }else{
             this.messageService.add({severity: 'error',summary: 'Erreurs',detail: 'Merci de corrigé les erreurs suivant : ' + this.errorMessages});
-       }
+        }
     }
 
 
@@ -75,8 +75,8 @@ export class VocabularyQuizCreateAdminComponent extends AbstractCreateController
 
     public validateVocabularyQuizLibelle(){
         if (this.stringUtilService.isEmpty(this.item.libelle)) {
-        this.errorMessages.push('Libelle non valide');
-        this.validVocabularyQuizLibelle = false;
+            this.errorMessages.push('Libelle non valide');
+            this.validVocabularyQuizLibelle = false;
         } else {
             this.validVocabularyQuizLibelle = true;
         }
@@ -84,15 +84,15 @@ export class VocabularyQuizCreateAdminComponent extends AbstractCreateController
 
 
     public async openCreateSection(section: string) {
-    const isPermistted = await this.roleService.isPermitted('Section', 'add');
-    if(isPermistted) {
-         this.section = new SectionDto();
-         this.createSectionDialog = true;
-    }else{
-        this.messageService.add({
-        severity: 'error', summary: 'erreur', detail: 'problème de permission'
-        });
-     }
+        const isPermistted = await this.roleService.isPermitted('Section', 'add');
+        if(isPermistted) {
+            this.section = new SectionDto();
+            this.createSectionDialog = true;
+        }else{
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème de permission'
+            });
+        }
     }
 
     get section(): SectionDto {
@@ -108,7 +108,7 @@ export class VocabularyQuizCreateAdminComponent extends AbstractCreateController
         this.sectionService.items = value;
     }
     get createSectionDialog(): boolean {
-       return this.sectionService.createDialog;
+        return this.sectionService.createDialog;
     }
     set createSectionDialog(value: boolean) {
         this.sectionService.createDialog= value;
@@ -121,7 +121,7 @@ export class VocabularyQuizCreateAdminComponent extends AbstractCreateController
     }
 
     set validVocabularyQuizLibelle(value: boolean) {
-         this._validVocabularyQuizLibelle = value;
+        this._validVocabularyQuizLibelle = value;
     }
 
     get validSectionCode(): boolean {

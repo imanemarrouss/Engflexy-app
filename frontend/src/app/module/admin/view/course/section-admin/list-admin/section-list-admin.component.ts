@@ -16,8 +16,8 @@ import {SectionItemDto} from 'src/app/controller/model/SectionItem.model';
 
 
 @Component({
-  selector: 'app-section-list-admin',
-  templateUrl: './section-list-admin.component.html'
+    selector: 'app-section-list-admin',
+    templateUrl: './section-list-admin.component.html'
 })
 export class SectionListAdminComponent extends AbstractListController<SectionDto, SectionCriteria, SectionService>  implements OnInit {
 
@@ -26,25 +26,27 @@ export class SectionListAdminComponent extends AbstractListController<SectionDto
     categorieSections :Array<CategorieSectionDto>;
     courss :Array<CoursDto>;
     sessionCourss :Array<SessionCoursDto>;
-  
+    imgUrl: string;
+    visibleSidebar: boolean;
+
     constructor(sectionService: SectionService, private categorieSectionService: CategorieSectionService, private coursService: CoursService, private sessionCoursService: SessionCoursService) {
         super(sectionService);
     }
 
     ngOnInit() : void {
-      this.findPaginatedByCriteria();
-      this.initExport();
-      this.initCol();
-      this.loadCategorieSection();
-      this.loadCours();
-      this.loadSessionCours();
+        this.findPaginatedByCriteria();
+        this.initExport();
+        this.initCol();
+        this.loadCategorieSection();
+        this.loadCours();
+        this.loadSessionCours();
     }
 
     public async loadSections(){
         await this.roleService.findAll();
         const isPermistted = await this.roleService.isPermitted('Section', 'list');
         isPermistted ? this.service.findAll().subscribe(sections => this.items = sections,error=>console.log(error))
-        : this.messageService.add({severity: 'error', summary: 'erreur', detail: 'problème d\'autorisation'});
+            : this.messageService.add({severity: 'error', summary: 'erreur', detail: 'problème d\'autorisation'});
     }
 
 
@@ -67,50 +69,54 @@ export class SectionListAdminComponent extends AbstractListController<SectionDto
             {field: 'sessionCours?.reference', header: 'Session cours'},
         ];
     }
+    showImage(imgUrl: string) {
+        this.imgUrl = imgUrl;
+        this.visibleSidebar = true;
+    }
 
 
     public async loadCategorieSection(){
         await this.roleService.findAll();
         const isPermistted = await this.roleService.isPermitted('Section', 'list');
         isPermistted ? this.categorieSectionService.findAllOptimized().subscribe(categorieSections => this.categorieSections = categorieSections,error=>console.log(error))
-        : this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Problème de permission'});
+            : this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Problème de permission'});
     }
     public async loadCours(){
         await this.roleService.findAll();
         const isPermistted = await this.roleService.isPermitted('Section', 'list');
         isPermistted ? this.coursService.findAllOptimized().subscribe(courss => this.courss = courss,error=>console.log(error))
-        : this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Problème de permission'});
+            : this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Problème de permission'});
     }
     public async loadSessionCours(){
         await this.roleService.findAll();
         const isPermistted = await this.roleService.isPermitted('Section', 'list');
         isPermistted ? this.sessionCoursService.findAllOptimized().subscribe(sessionCourss => this.sessionCourss = sessionCourss,error=>console.log(error))
-        : this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Problème de permission'});
+            : this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Problème de permission'});
     }
 
-	public initDuplicate(res: SectionDto) {
+    public initDuplicate(res: SectionDto) {
         if (res.sectionItems != null) {
-             res.sectionItems.forEach(d => { d.section = null; d.id = null; });
+            res.sectionItems.forEach(d => { d.section = null; d.id = null; });
         }
-	}
+    }
 
-   public prepareColumnExport() : void {
+    public prepareColumnExport() : void {
         this.exportData = this.items.map(e => {
             return {
-                 'Code': e.code ,
-                 'Libelle': e.libelle ,
-                 'Url image': e.urlImage ,
-                 'Url image2': e.urlImage2 ,
-                 'Url image3': e.urlImage3 ,
-                 'Url video': e.urlVideo ,
-                 'Contenu': e.contenu ,
-                 'Questions': e.questions ,
-                 'Indication prof': e.indicationProf ,
-                 'Numero order': e.numeroOrder ,
+                'Code': e.code ,
+                'Libelle': e.libelle ,
+                'Url image': e.urlImage ,
+                'Url image2': e.urlImage2 ,
+                'Url image3': e.urlImage3 ,
+                'Url video': e.urlVideo ,
+                'Contenu': e.contenu ,
+                'Questions': e.questions ,
+                'Indication prof': e.indicationProf ,
+                'Numero order': e.numeroOrder ,
                 'Categorie section': e.categorieSection?.code ,
                 'Cours': e.cours?.libelle ,
-                 'Url': e.url ,
-                 'Content': e.content ,
+                'Url': e.url ,
+                'Content': e.content ,
                 'Session cours': e.sessionCours?.reference ,
             }
         });
@@ -127,13 +133,13 @@ export class SectionListAdminComponent extends AbstractListController<SectionDto
             'Indication prof': this.criteria.indicationProf ? this.criteria.indicationProf : environment.emptyForExport ,
             'Numero order Min': this.criteria.numeroOrderMin ? this.criteria.numeroOrderMin : environment.emptyForExport ,
             'Numero order Max': this.criteria.numeroOrderMax ? this.criteria.numeroOrderMax : environment.emptyForExport ,
-        //'Categorie section': this.criteria.categorieSection?.code ? this.criteria.categorieSection?.code : environment.emptyForExport ,
-        //'Cours': this.criteria.cours?.libelle ? this.criteria.cours?.libelle : environment.emptyForExport ,
+            //'Categorie section': this.criteria.categorieSection?.code ? this.criteria.categorieSection?.code : environment.emptyForExport ,
+            //'Cours': this.criteria.cours?.libelle ? this.criteria.cours?.libelle : environment.emptyForExport ,
             'Url Min': this.criteria.urlMin ? this.criteria.urlMin : environment.emptyForExport ,
             'Url Max': this.criteria.urlMax ? this.criteria.urlMax : environment.emptyForExport ,
             'Content Min': this.criteria.contentMin ? this.criteria.contentMin : environment.emptyForExport ,
             'Content Max': this.criteria.contentMax ? this.criteria.contentMax : environment.emptyForExport ,
-        //'Session cours': this.criteria.sessionCours?.reference ? this.criteria.sessionCours?.reference : environment.emptyForExport ,
+            //'Session cours': this.criteria.sessionCours?.reference ? this.criteria.sessionCours?.reference : environment.emptyForExport ,
         }];
-      }
+    }
 }

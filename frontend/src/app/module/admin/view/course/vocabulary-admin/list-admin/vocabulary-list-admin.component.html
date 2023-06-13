@@ -4,7 +4,7 @@
         <div class="card">
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
-                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('Vocabulary')"></button>
+                    <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('Vocabulary')"></button>
                     <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()></button>
                     <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-warning mr-2 mb-2" (click)="this.showSearch()"></button>
                 </ng-template>
@@ -22,44 +22,44 @@
                             <input class="mr-2" pInputText id="1" type="text"  [(ngModel)]="criteria.refLike">
                             <label for="1">{{'Ref' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.numeroMin" id="2-1"></p-inputNumber>
                             <label for="2-1">{{'Numero' | translate}} Min</label>
                         </span>
-                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.numeroMax" id="2-2"></p-inputNumber>
                             <label for="2-2">{{'Numero' | translate}} Max</label>
                        </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="3" type="text"  [(ngModel)]="criteria.wordLike">
                             <label for="3">{{'Word' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="4" type="text"  [(ngModel)]="criteria.libelleLike">
                             <label for="4">{{'Libelle' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="5" type="text"  [(ngModel)]="criteria.resultLike">
                             <label for="5">{{'Result' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="6" type="text"  [(ngModel)]="criteria.explicationLike">
                             <label for="6">{{'Explication' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="7" type="text"  [(ngModel)]="criteria.exempleLike">
                             <label for="7">{{'Exemple' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="8" type="text"  [(ngModel)]="criteria.imageLike">
                             <label for="8">{{'Image' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-dropdown [options]="sections" [(ngModel)]="criteria.section" id="9" [filter]="true"
                                         [showClear]="true"  placeholder="{{'Section' | translate}}" optionLabel="code">
                             </p-dropdown>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-dropdown [options]="vocabularyQuizs" [(ngModel)]="criteria.vocabularyQuiz" id="10" [filter]="true"
                                         [showClear]="true"  placeholder="{{'Vocabulary quiz' | translate}}" optionLabel="libelle">
                             </p-dropdown>
@@ -73,10 +73,10 @@
 
 
             <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
-                    [globalFilterFields]="['ref', 'numero', 'word', 'libelle', 'result', 'explication', 'exemple', 'image', 'sectioncode', 'vocabularyQuizlibelle']" [(selection)]="selections"
-                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
-                    currentPageReportTemplate="{{'Les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
-                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                     [globalFilterFields]="['ref', 'numero', 'word', 'libelle', 'result', 'explication', 'exemple', 'image', 'sectioncode', 'vocabularyQuizlibelle']" [(selection)]="selections"
+                     [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                     currentPageReportTemplate="{{'Les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                     [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column flex-row justify-content-between table-header">
                         <h5 class="p-m-0">{{'vocabularyHeader' | translate}}</h5>
@@ -91,7 +91,7 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                                
+
                         <th pSortableColumn="ref">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Ref' | translate}}</span>
@@ -99,16 +99,16 @@
                                 <p-columnFilter type="text" field="element.ref" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="numero">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Numero' | translate}}</span>
                                 <p-sortIcon field="numero"></p-sortIcon>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="word">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Word' | translate}}</span>
@@ -116,8 +116,8 @@
                                 <p-columnFilter type="text" field="element.word" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="libelle">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Libelle' | translate}}</span>
@@ -125,8 +125,8 @@
                                 <p-columnFilter type="text" field="element.libelle" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="result">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Result' | translate}}</span>
@@ -134,8 +134,8 @@
                                 <p-columnFilter type="text" field="element.result" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="explication">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Explication' | translate}}</span>
@@ -143,8 +143,8 @@
                                 <p-columnFilter type="text" field="element.explication" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="exemple">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Exemple' | translate}}</span>
@@ -152,8 +152,8 @@
                                 <p-columnFilter type="text" field="element.exemple" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="image">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Image' | translate}}</span>
@@ -161,23 +161,23 @@
                                 <p-columnFilter type="text" field="element.image" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="section">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Section' | translate}}</span>
                                 <p-sortIcon field="section"></p-sortIcon>
                             </div>
                         </th>
-                                
-                                <!-- 
-                        <th pSortableColumn="vocabularyQuiz">
-                            <div class="p-d-flex p-jc-between p-ai-center">
-                                <span>{{'Vocabulary quiz' | translate}}</span>
-                                <p-sortIcon field="vocabularyQuiz"></p-sortIcon>
-                            </div>
-                        </th>
-                                --> 
+
+                        <!--
+                <th pSortableColumn="vocabularyQuiz">
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        <span>{{'Vocabulary quiz' | translate}}</span>
+                        <p-sortIcon field="vocabularyQuiz"></p-sortIcon>
+                    </div>
+                </th>
+                        -->
                         <th>Actions</th>
                     </tr>
                 </ng-template>
@@ -186,36 +186,37 @@
                         <td>
                             <p-tableCheckbox [value]="element"></p-tableCheckbox>
                         </td>
-                            
+
                         <td>{{element.ref}}</td>
-                            
-                            
+
+
                         <td>{{element.numero}}</td>
-                            
-                            
+
+
                         <td>{{element.word}}</td>
-                            
-                            
+
+
                         <td>{{element.libelle}}</td>
-                            
-                            
+
+
                         <td>{{element.result}}</td>
-                            
-                            
+
+
                         <td>{{element.explication}}</td>
-                            
-                            
+
+
                         <td>{{element.exemple}}</td>
-                            
-                            
-                        <td>{{element.image}}</td>
-                            
-                            
+
+
+                        <td><img src="{{element.image}}" width="90%" (click)="showImage(element.image)"
+                                 class="shadow-4"/></td>
+
+
                         <td>{{element.section?.code}}</td>
-                            
-                             <!-- 
-                        <td>{{element.vocabularyQuiz?.libelle}}</td>
-                             --> 
+
+                        <!--
+                   <td>{{element.vocabularyQuiz?.libelle}}</td>
+                        -->
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-success mr-2" (click)="edit(element)"></button>
                             <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info mr-2" (click)="view(element)"></button>

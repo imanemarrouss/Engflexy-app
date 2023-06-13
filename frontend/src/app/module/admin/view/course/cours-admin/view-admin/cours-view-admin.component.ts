@@ -29,8 +29,8 @@ import {HomeWorkEtudiantService} from 'src/app/controller/service/HomeWorkEtudia
 import {TypeHomeWorkDto} from 'src/app/controller/model/TypeHomeWork.model';
 import {TypeHomeWorkService} from 'src/app/controller/service/TypeHomeWork.service';
 @Component({
-  selector: 'app-cours-view-admin',
-  templateUrl: './cours-view-admin.component.html'
+    selector: 'app-cours-view-admin',
+    templateUrl: './cours-view-admin.component.html'
 })
 export class CoursViewAdminComponent extends AbstractViewController<CoursDto, CoursCriteria, CoursService> implements OnInit {
 
@@ -58,61 +58,61 @@ export class CoursViewAdminComponent extends AbstractViewController<CoursDto, Co
 
 
     get typeHomeWork(): TypeHomeWorkDto {
-       return this.typeHomeWorkService.item;
+        return this.typeHomeWorkService.item;
     }
     set typeHomeWork(value: TypeHomeWorkDto) {
         this.typeHomeWorkService.item = value;
     }
     get typeHomeWorks():Array<TypeHomeWorkDto> {
-       return this.typeHomeWorkService.items;
+        return this.typeHomeWorkService.items;
     }
     set typeHomeWorks(value: Array<TypeHomeWorkDto>) {
         this.typeHomeWorkService.items = value;
     }
     get etatCours(): EtatCoursDto {
-       return this.etatCoursService.item;
+        return this.etatCoursService.item;
     }
     set etatCours(value: EtatCoursDto) {
         this.etatCoursService.item = value;
     }
     get etatCourss():Array<EtatCoursDto> {
-       return this.etatCoursService.items;
+        return this.etatCoursService.items;
     }
     set etatCourss(value: Array<EtatCoursDto>) {
         this.etatCoursService.items = value;
     }
     get parcours(): ParcoursDto {
-       return this.parcoursService.item;
+        return this.parcoursService.item;
     }
     set parcours(value: ParcoursDto) {
         this.parcoursService.item = value;
     }
     get parcourss():Array<ParcoursDto> {
-       return this.parcoursService.items;
+        return this.parcoursService.items;
     }
     set parcourss(value: Array<ParcoursDto>) {
         this.parcoursService.items = value;
     }
     get categorieSection(): CategorieSectionDto {
-       return this.categorieSectionService.item;
+        return this.categorieSectionService.item;
     }
     set categorieSection(value: CategorieSectionDto) {
         this.categorieSectionService.item = value;
     }
     get categorieSections():Array<CategorieSectionDto> {
-       return this.categorieSectionService.items;
+        return this.categorieSectionService.items;
     }
     set categorieSections(value: Array<CategorieSectionDto>) {
         this.categorieSectionService.items = value;
     }
     get sessionCours(): SessionCoursDto {
-       return this.sessionCoursService.item;
+        return this.sessionCoursService.item;
     }
     set sessionCours(value: SessionCoursDto) {
         this.sessionCoursService.item = value;
     }
     get sessionCourss():Array<SessionCoursDto> {
-       return this.sessionCoursService.items;
+        return this.sessionCoursService.items;
     }
     set sessionCourss(value: Array<SessionCoursDto>) {
         this.sessionCoursService.items = value;

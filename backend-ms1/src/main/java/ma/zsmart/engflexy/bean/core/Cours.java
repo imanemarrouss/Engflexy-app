@@ -1,10 +1,16 @@
 package ma.zsmart.engflexy.bean.core;
 
+import java.util.Objects;
+import java.util.List;
+
+
+
+
+
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ma.zsmart.engflexy.zynerator.audit.AuditBusinessObject;
-
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -27,15 +33,15 @@ public class Cours   extends AuditBusinessObject     {
     @Column(length = 500)
     private String image;
     private Integer nombreSectionFinalise = 0;
-    private Integer nombreSectionEnCours = 0;
+    private Long nombreSectionEnCours ;
     private Integer nombreLinkEnCours = 0;
     private Integer nombreLinkFinalise = 0;
     private Integer numeroOrder = 0;
 
     private EtatCours etatCours ;
-    
+
     private Parcours parcours ;
-    
+
 
     private List<Section> sections ;
     private List<HomeWork> homeWorks ;
@@ -54,7 +60,7 @@ public class Cours   extends AuditBusinessObject     {
 
     @Id
     @Column(name = "id")
-        @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="cours_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="cours_seq")
     public Long getId(){
         return this.id;
     }
@@ -105,10 +111,10 @@ public class Cours   extends AuditBusinessObject     {
     public void setNombreSectionFinalise(Integer nombreSectionFinalise){
         this.nombreSectionFinalise = nombreSectionFinalise;
     }
-    public Integer getNombreSectionEnCours(){
+    public Long getNombreSectionEnCours(){
         return this.nombreSectionEnCours;
     }
-    public void setNombreSectionEnCours(Integer nombreSectionEnCours){
+    public void setNombreSectionEnCours(Long nombreSectionEnCours){
         this.nombreSectionEnCours = nombreSectionEnCours;
     }
     public Integer getNombreLinkEnCours(){

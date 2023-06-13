@@ -17,6 +17,7 @@ export abstract class AbstractService<DTO extends BaseDto, CRITERIA extends Base
     protected _selections: Array<DTO>;
     protected _createDialog: boolean;
     protected _editDialog: boolean;
+    protected _modifiateDialog: boolean;
     protected _viewDialog: boolean;
     protected _criteria: CRITERIA;
     protected _index: number = 0;
@@ -164,6 +165,12 @@ export abstract class AbstractService<DTO extends BaseDto, CRITERIA extends Base
 
     public set editDialog(value: boolean) {
         this._editDialog = value;
+    }
+    public get modifiateDialog(): boolean {
+        return this._modifiateDialog;
+    }
+    public set modifiateDialog(value: boolean) {
+        this._modifiateDialog = value;
     }
 
     public get viewDialog(): boolean {

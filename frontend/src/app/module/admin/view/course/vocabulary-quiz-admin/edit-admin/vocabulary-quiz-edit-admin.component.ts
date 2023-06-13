@@ -14,8 +14,8 @@ import {SectionDto} from 'src/app/controller/model/Section.model';
 import {SectionService} from 'src/app/controller/service/Section.service';
 
 @Component({
-  selector: 'app-vocabulary-quiz-edit-admin',
-  templateUrl: './vocabulary-quiz-edit-admin.component.html'
+    selector: 'app-vocabulary-quiz-edit-admin',
+    templateUrl: './vocabulary-quiz-edit-admin.component.html'
 })
 export class VocabularyQuizEditAdminComponent extends AbstractEditController<VocabularyQuizDto, VocabularyQuizCriteria, VocabularyQuizService>   implements OnInit {
 
@@ -24,6 +24,10 @@ export class VocabularyQuizEditAdminComponent extends AbstractEditController<Voc
     private _validVocabularyQuizLibelle = true;
 
     private _validSectionCode = true;
+    imgUrl: string;
+    visibleSidebar: boolean;
+
+
 
 
 
@@ -35,14 +39,17 @@ export class VocabularyQuizEditAdminComponent extends AbstractEditController<Voc
         this.vocabularysElement.section = new SectionDto();
         this.sectionService.findAll().subscribe((data) => this.sections = data);
 
-    this.section = new SectionDto();
-    this.sectionService.findAll().subscribe((data) => this.sections = data);
-}
+        this.section = new SectionDto();
+        this.sectionService.findAll().subscribe((data) => this.sections = data);
+    }
     public prepareEdit() {
         this.item.dateDebut = this.vocabularyQuizService.format(this.item.dateDebut);
         this.item.dateFin = this.vocabularyQuizService.format(this.item.dateFin);
     }
-
+    showImage(imgUrl: string) {
+        this.imgUrl = imgUrl;
+        this.visibleSidebar = true;
+    }
 
 
     public validateVocabularys(){
@@ -50,23 +57,23 @@ export class VocabularyQuizEditAdminComponent extends AbstractEditController<Voc
     }
     public setValidation(value : boolean){
         this.validVocabularyQuizLibelle = value;
-        }
-   public addVocabularys() {
+    }
+    public addVocabularys() {
         if( this.item.vocabularys == null )
             this.item.vocabularys = new Array<VocabularyDto>();
-       this.validateVocabularys();
-       if (this.errorMessages.length === 0) {
+        this.validateVocabularys();
+        if (this.errorMessages.length === 0) {
             if(this.vocabularysElement.id == null){
                 this.item.vocabularys.push(this.vocabularysElement);
             }else{
                 const index = this.item.vocabularys.findIndex(e => e.id == this.vocabularysElement.id);
                 this.item.vocabularys[index] = this.vocabularysElement;
             }
-          this.vocabularysElement = new VocabularyDto();
-       }else{
+            this.vocabularysElement = new VocabularyDto();
+        }else{
             this.messageService.add({severity: 'error',summary: 'Erreurs', detail: 'Merci de corrigé les erreurs suivant : ' + this.errorMessages});
         }
-   }
+    }
 
     public deleteVocabulary(p: VocabularyDto) {
         this.item.vocabularys.forEach((element, index) => {
@@ -93,41 +100,41 @@ export class VocabularyQuizEditAdminComponent extends AbstractEditController<Voc
 
 
 
-   public async openCreateSection(section: string) {
+    public async openCreateSection(section: string) {
         const isPermistted = await this.roleService.isPermitted('Section', 'edit');
         if(isPermistted) {
-             this.section = new SectionDto();
-             this.createSectionDialog = true;
+            this.section = new SectionDto();
+            this.createSectionDialog = true;
         }else{
-             this.messageService.add({
+            this.messageService.add({
                 severity: 'error', summary: 'erreur', detail: 'problème de permission'
             });
         }
     }
 
-   get section(): SectionDto {
-       return this.sectionService.item;
-   }
-  set section(value: SectionDto) {
+    get section(): SectionDto {
+        return this.sectionService.item;
+    }
+    set section(value: SectionDto) {
         this.sectionService.item = value;
-   }
-   get sections(): Array<SectionDto> {
+    }
+    get sections(): Array<SectionDto> {
         return this.sectionService.items;
-   }
-   set sections(value: Array<SectionDto>) {
+    }
+    set sections(value: Array<SectionDto>) {
         this.sectionService.items = value;
-   }
-   get createSectionDialog(): boolean {
-       return this.sectionService.createDialog;
-   }
-  set createSectionDialog(value: boolean) {
-       this.sectionService.createDialog= value;
-   }
+    }
+    get createSectionDialog(): boolean {
+        return this.sectionService.createDialog;
+    }
+    set createSectionDialog(value: boolean) {
+        this.sectionService.createDialog= value;
+    }
 
     get vocabularysElement(): VocabularyDto {
         if( this._vocabularysElement == null )
             this._vocabularysElement = new VocabularyDto();
-         return this._vocabularysElement;
+        return this._vocabularysElement;
     }
 
     set vocabularysElement(value: VocabularyDto) {

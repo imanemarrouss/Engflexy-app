@@ -40,6 +40,7 @@ export class AbstractEditController<DTO extends BaseDto, CRITERIA extends BaseCr
 
     }
 
+
     public edit(): void {
         this.submitted = true;
         this.prepareEdit();
@@ -53,6 +54,14 @@ export class AbstractEditController<DTO extends BaseDto, CRITERIA extends BaseCr
                 detail: 'Merci de corrigé les erreurs sur le formulaire'
             });
         }
+    }
+    public async modifier(dto: DTO) {
+        this.service.findByIdWithAssociatedList(dto).subscribe(res => {
+            this.item = res;
+            console.log(res);
+            this.modifiateDialog = true;
+        });
+
     }
 
     public editWithShowOption(showList: boolean) {
@@ -117,6 +126,13 @@ export class AbstractEditController<DTO extends BaseDto, CRITERIA extends BaseCr
 
     set item(value: DTO) {
         this.service.item = value;
+    }
+    get modifiateDialog(): boolean {
+        return this.service.modifiateDialog;
+    }
+
+    set modifiateDialog(value: boolean) {
+        this.service.modifiateDialog = value;
     }
 
     get editDialog(): boolean {

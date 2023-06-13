@@ -4,7 +4,7 @@
         <div class="card">
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
-                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('Section')"></button>
+                    <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('Section')"></button>
                     <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()></button>
                     <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-warning mr-2 mb-2" (click)="this.showSearch()"></button>
                 </ng-template>
@@ -22,73 +22,73 @@
                             <input class="mr-2" pInputText id="1" type="text"  [(ngModel)]="criteria.codeLike">
                             <label for="1">{{'Code' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="2" type="text"  [(ngModel)]="criteria.libelleLike">
                             <label for="2">{{'Libelle' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="3" type="text"  [(ngModel)]="criteria.urlImageLike">
                             <label for="3">{{'Url image' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="4" type="text"  [(ngModel)]="criteria.urlImage2Like">
                             <label for="4">{{'Url image2' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="5" type="text"  [(ngModel)]="criteria.urlImage3Like">
                             <label for="5">{{'Url image3' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="6" type="text"  [(ngModel)]="criteria.urlVideoLike">
                             <label for="6">{{'Url video' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="7" type="text"  [(ngModel)]="criteria.contenuLike">
                             <label for="7">{{'Contenu' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="8" type="text"  [(ngModel)]="criteria.questionsLike">
                             <label for="8">{{'Questions' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <input class="mr-2" pInputText id="9" type="text"  [(ngModel)]="criteria.indicationProfLike">
                             <label for="9">{{'Indication prof' | translate}}</label>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.numeroOrderMin" id="10-1"></p-inputNumber>
                             <label for="10-1">{{'Numero order' | translate}} Min</label>
                         </span>
-                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.numeroOrderMax" id="10-2"></p-inputNumber>
                             <label for="10-2">{{'Numero order' | translate}} Max</label>
                        </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-dropdown [options]="categorieSections" [(ngModel)]="criteria.categorieSection" id="11" [filter]="true"
                                         [showClear]="true"  placeholder="{{'Categorie section' | translate}}" optionLabel="code">
                             </p-dropdown>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-dropdown [options]="courss" [(ngModel)]="criteria.cours" id="12" [filter]="true"
                                         [showClear]="true"  placeholder="{{'Cours' | translate}}" optionLabel="libelle">
                             </p-dropdown>
                         </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.urlMin" id="13-1"></p-inputNumber>
                             <label for="13-1">{{'Url' | translate}} Min</label>
                         </span>
-                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.urlMax" id="13-2"></p-inputNumber>
                             <label for="13-2">{{'Url' | translate}} Max</label>
                        </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.contentMin" id="14-1"></p-inputNumber>
                             <label for="14-1">{{'Content' | translate}} Min</label>
                         </span>
-                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.contentMax" id="14-2"></p-inputNumber>
                             <label for="14-2">{{'Content' | translate}} Max</label>
                        </span>
-                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                    <span class=" p-float-label mr-3 align-search-items mt-4">
                             <p-dropdown [options]="sessionCourss" [(ngModel)]="criteria.sessionCours" id="16" [filter]="true"
                                         [showClear]="true"  placeholder="{{'Session cours' | translate}}" optionLabel="reference">
                             </p-dropdown>
@@ -102,10 +102,10 @@
 
 
             <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
-                    [globalFilterFields]="['code', 'libelle', 'urlImage', 'urlImage2', 'urlImage3', 'urlVideo', 'contenu', 'questions', 'indicationProf', 'numeroOrder', 'categorieSectioncode', 'courslibelle', 'url', 'content', 'sessionCoursreference']" [(selection)]="selections"
-                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
-                    currentPageReportTemplate="{{'Les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
-                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                     [globalFilterFields]="['code', 'libelle', 'urlImage', 'urlImage2', 'urlImage3', 'urlVideo', 'contenu', 'questions', 'indicationProf', 'numeroOrder', 'categorieSectioncode', 'courslibelle', 'url', 'content', 'sessionCoursreference']" [(selection)]="selections"
+                     [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                     currentPageReportTemplate="{{'Les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                     [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column flex-row justify-content-between table-header">
                         <h5 class="p-m-0">{{'sectionHeader' | translate}}</h5>
@@ -120,7 +120,7 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                                
+
                         <th pSortableColumn="code">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Code' | translate}}</span>
@@ -128,8 +128,8 @@
                                 <p-columnFilter type="text" field="element.code" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="libelle">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Libelle' | translate}}</span>
@@ -137,8 +137,8 @@
                                 <p-columnFilter type="text" field="element.libelle" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="urlImage">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Url image' | translate}}</span>
@@ -146,8 +146,8 @@
                                 <p-columnFilter type="text" field="element.urlImage" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="urlImage2">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Url image2' | translate}}</span>
@@ -155,8 +155,8 @@
                                 <p-columnFilter type="text" field="element.urlImage2" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="urlImage3">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Url image3' | translate}}</span>
@@ -164,8 +164,8 @@
                                 <p-columnFilter type="text" field="element.urlImage3" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="urlVideo">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Url video' | translate}}</span>
@@ -173,8 +173,8 @@
                                 <p-columnFilter type="text" field="element.urlVideo" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="contenu">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Contenu' | translate}}</span>
@@ -182,8 +182,8 @@
                                 <p-columnFilter type="text" field="element.contenu" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="questions">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Questions' | translate}}</span>
@@ -191,8 +191,8 @@
                                 <p-columnFilter type="text" field="element.questions" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                
+
+
                         <th pSortableColumn="indicationProf">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span>{{'Indication prof' | translate}}</span>
@@ -200,55 +200,55 @@
                                 <p-columnFilter type="text" field="element.indicationProf" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                                
-                                <!-- 
-                        <th pSortableColumn="numeroOrder">
-                            <div class="p-d-flex p-jc-between p-ai-center">
-                                <span>{{'Numero order' | translate}}</span>
-                                <p-sortIcon field="numeroOrder"></p-sortIcon>
-                            </div>
-                        </th>
-                                --> 
-                                <!-- 
-                        <th pSortableColumn="categorieSection">
-                            <div class="p-d-flex p-jc-between p-ai-center">
-                                <span>{{'Categorie section' | translate}}</span>
-                                <p-sortIcon field="categorieSection"></p-sortIcon>
-                            </div>
-                        </th>
-                                --> 
-                                <!-- 
-                        <th pSortableColumn="cours">
-                            <div class="p-d-flex p-jc-between p-ai-center">
-                                <span>{{'Cours' | translate}}</span>
-                                <p-sortIcon field="cours"></p-sortIcon>
-                            </div>
-                        </th>
-                                --> 
-                                <!-- 
-                        <th pSortableColumn="url">
-                            <div class="p-d-flex p-jc-between p-ai-center">
-                                <span>{{'Url' | translate}}</span>
-                                <p-sortIcon field="url"></p-sortIcon>
-                            </div>
-                        </th>
-                                --> 
-                                <!-- 
-                        <th pSortableColumn="content">
-                            <div class="p-d-flex p-jc-between p-ai-center">
-                                <span>{{'Content' | translate}}</span>
-                                <p-sortIcon field="content"></p-sortIcon>
-                            </div>
-                        </th>
-                                --> 
-                                <!-- 
-                        <th pSortableColumn="sessionCours">
-                            <div class="p-d-flex p-jc-between p-ai-center">
-                                <span>{{'Session cours' | translate}}</span>
-                                <p-sortIcon field="sessionCours"></p-sortIcon>
-                            </div>
-                        </th>
-                                --> 
+
+                        <!--
+                <th pSortableColumn="numeroOrder">
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        <span>{{'Numero order' | translate}}</span>
+                        <p-sortIcon field="numeroOrder"></p-sortIcon>
+                    </div>
+                </th>
+                        -->
+                        <!--
+                <th pSortableColumn="categorieSection">
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        <span>{{'Categorie section' | translate}}</span>
+                        <p-sortIcon field="categorieSection"></p-sortIcon>
+                    </div>
+                </th>
+                        -->
+                        <!--
+                <th pSortableColumn="cours">
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        <span>{{'Cours' | translate}}</span>
+                        <p-sortIcon field="cours"></p-sortIcon>
+                    </div>
+                </th>
+                        -->
+                        <!--
+                <th pSortableColumn="url">
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        <span>{{'Url' | translate}}</span>
+                        <p-sortIcon field="url"></p-sortIcon>
+                    </div>
+                </th>
+                        -->
+                        <!--
+                <th pSortableColumn="content">
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        <span>{{'Content' | translate}}</span>
+                        <p-sortIcon field="content"></p-sortIcon>
+                    </div>
+                </th>
+                        -->
+                        <!--
+                <th pSortableColumn="sessionCours">
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        <span>{{'Session cours' | translate}}</span>
+                        <p-sortIcon field="sessionCours"></p-sortIcon>
+                    </div>
+                </th>
+                        -->
                         <th>Actions</th>
                     </tr>
                 </ng-template>
@@ -257,51 +257,52 @@
                         <td>
                             <p-tableCheckbox [value]="element"></p-tableCheckbox>
                         </td>
-                            
+
                         <td>{{element.code}}</td>
-                            
-                            
+
+
                         <td>{{element.libelle}}</td>
-                            
-                            
-                        <td>{{element.urlImage}}</td>
-                            
-                            
+
+
+                        <td><img src="{{element.urlImage}}" width="90%" (click)="showImage(element.urlImage)"
+                                 class="shadow-4"/></td>
+
+
                         <td>{{element.urlImage2}}</td>
-                            
-                            
+
+
                         <td>{{element.urlImage3}}</td>
-                            
-                            
+
+
                         <td>{{element.urlVideo}}</td>
-                            
-                            
+
+
                         <td>{{element.contenu}}</td>
-                            
-                            
+
+
                         <td>{{element.questions}}</td>
-                            
-                            
+
+
                         <td>{{element.indicationProf}}</td>
-                            
-                             <!-- 
-                        <td>{{element.numeroOrder}}</td>
-                             --> 
-                             <!-- 
-                        <td>{{element.categorieSection?.code}}</td>
-                             --> 
-                             <!-- 
-                        <td>{{element.cours?.libelle}}</td>
-                             --> 
-                             <!-- 
-                        <td>{{element.url}}</td>
-                             --> 
-                             <!-- 
-                        <td>{{element.content}}</td>
-                             --> 
-                             <!-- 
-                        <td>{{element.sessionCours?.reference}}</td>
-                             --> 
+
+                        <!--
+                   <td>{{element.numeroOrder}}</td>
+                        -->
+                        <!--
+                   <td>{{element.categorieSection?.code}}</td>
+                        -->
+                        <!--
+                   <td>{{element.cours?.libelle}}</td>
+                        -->
+                        <!--
+                   <td>{{element.url}}</td>
+                        -->
+                        <!--
+                   <td>{{element.content}}</td>
+                        -->
+                        <!--
+                   <td>{{element.sessionCours?.reference}}</td>
+                        -->
                         <td>
                             <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-success mr-2" (click)="edit(element)"></button>
                             <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info mr-2" (click)="view(element)"></button>

@@ -1,8 +1,8 @@
 package  ma.zsmart.engflexy.ws.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import ma.zsmart.engflexy.zynerator.audit.Log;
 import ma.zsmart.engflexy.zynerator.dto.AuditBaseDto;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class CoursDto  extends AuditBaseDto {
     private String description  ;
     private String image  ;
     private Integer nombreSectionFinalise  = 0 ;
-    private Integer nombreSectionEnCours  = 0 ;
+    private Long nombreSectionEnCours  ;
     private Integer nombreLinkEnCours  = 0 ;
     private Integer nombreLinkFinalise  = 0 ;
     private Integer numeroOrder  = 0 ;
@@ -74,10 +74,10 @@ public class CoursDto  extends AuditBaseDto {
     }
 
     @Log
-    public Integer getNombreSectionEnCours(){
+    public Long getNombreSectionEnCours(){
         return this.nombreSectionEnCours;
     }
-    public void setNombreSectionEnCours(Integer nombreSectionEnCours){
+    public void setNombreSectionEnCours(Long nombreSectionEnCours){
         this.nombreSectionEnCours = nombreSectionEnCours;
     }
 

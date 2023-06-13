@@ -30,8 +30,8 @@ import {TypeHomeWorkDto} from 'src/app/controller/model/TypeHomeWork.model';
 import {TypeHomeWorkService} from 'src/app/controller/service/TypeHomeWork.service';
 
 @Component({
-  selector: 'app-cours-edit-admin',
-  templateUrl: './cours-edit-admin.component.html'
+    selector: 'app-cours-edit-admin',
+    templateUrl: './cours-edit-admin.component.html'
 })
 export class CoursEditAdminComponent extends AbstractEditController<CoursDto, CoursCriteria, CoursService>   implements OnInit {
 
@@ -48,6 +48,10 @@ export class CoursEditAdminComponent extends AbstractEditController<CoursDto, Co
     private _validSectionsCode = true;
     private _validHomeWorksLibelle = true;
 
+    imgUrl: string;
+    visibleSidebar: boolean;
+    T = this.item.sections;
+
 
 
     constructor( private coursService: CoursService , private homeWorkService: HomeWorkService, private sectionService: SectionService, private categorieSectionService: CategorieSectionService, private sessionCoursService: SessionCoursService, private typeHomeWorkService: TypeHomeWorkService, private parcoursService: ParcoursService, private etatCoursService: EtatCoursService) {
@@ -63,12 +67,15 @@ export class CoursEditAdminComponent extends AbstractEditController<CoursDto, Co
         this.homeWorksElement.typeHomeWork = new TypeHomeWorkDto();
         this.typeHomeWorkService.findAll().subscribe((data) => this.typeHomeWorks = data);
 
-    this.etatCours = new EtatCoursDto();
-    this.etatCoursService.findAll().subscribe((data) => this.etatCourss = data);
-    this.parcours = new ParcoursDto();
-    this.parcoursService.findAll().subscribe((data) => this.parcourss = data);
-}
-
+        this.etatCours = new EtatCoursDto();
+        this.etatCoursService.findAll().subscribe((data) => this.etatCourss = data);
+        this.parcours = new ParcoursDto();
+        this.parcoursService.findAll().subscribe((data) => this.parcourss = data);
+    }
+    showImage(imgUrl: string) {
+        this.imgUrl = imgUrl;
+        this.visibleSidebar = true;
+    }
 
     public validateSections(){
         this.errorMessages = new Array();
@@ -83,23 +90,39 @@ export class CoursEditAdminComponent extends AbstractEditController<CoursDto, Co
         this.validCoursLibelle = value;
         this.validSectionsCode = value;
         this.validHomeWorksLibelle = value;
-        }
-   public addSections() {
+    }
+    public addSections() {
         if( this.item.sections == null )
             this.item.sections = new Array<SectionDto>();
-       this.validateSections();
-       if (this.errorMessages.length === 0) {
+        this.validateSections();
+        if (this.errorMessages.length === 0) {
             if(this.sectionsElement.id == null){
                 this.item.sections.push(this.sectionsElement);
             }else{
                 const index = this.item.sections.findIndex(e => e.id == this.sectionsElement.id);
                 this.item.sections[index] = this.sectionsElement;
             }
-          this.sectionsElement = new SectionDto();
-       }else{
+            this.sectionsElement = new SectionDto();
+        }else{
             this.messageService.add({severity: 'error',summary: 'Erreurs', detail: 'Merci de corrigé les erreurs suivant : ' + this.errorMessages});
         }
-   }
+    }
+    public modifierSection() {
+        if( this.item.sections == null )
+            this.item.sections = new Array<SectionDto>();
+        this.validateSections();
+        if (this.errorMessages.length === 0) {
+            if(this.sectionsElement.id == null){
+                this.item.sections.push(this.sectionsElement);
+            }else{
+                const index = this.item.sections.findIndex(e => e.id == this.sectionsElement.id);
+                this.item.sections[index] = this.sectionsElement;
+            }
+            this.modifiateDialog = false;
+        }else{
+            this.messageService.add({severity: 'error',summary: 'Erreurs', detail: 'Merci de corrigé les erreurs suivant : ' + this.errorMessages});
+        }
+    }
 
     public deleteSection(p: SectionDto) {
         this.item.sections.forEach((element, index) => {
@@ -109,24 +132,33 @@ export class CoursEditAdminComponent extends AbstractEditController<CoursDto, Co
 
     public editSection(p: SectionDto) {
         this.sectionsElement = {... p};
-        this.activeTab = 0;
+        this.activeTab = 1;
     }
-   public addHomeWorks() {
+    public modifiateSection(p: SectionDto) {
+        this.sectionsElement = {... p};
+        this.modifiateDialog = true;
+
+    }
+
+
+
+
+    public addHomeWorks() {
         if( this.item.homeWorks == null )
             this.item.homeWorks = new Array<HomeWorkDto>();
-       this.validateHomeWorks();
-       if (this.errorMessages.length === 0) {
+        this.validateHomeWorks();
+        if (this.errorMessages.length === 0) {
             if(this.homeWorksElement.id == null){
                 this.item.homeWorks.push(this.homeWorksElement);
             }else{
                 const index = this.item.homeWorks.findIndex(e => e.id == this.homeWorksElement.id);
                 this.item.homeWorks[index] = this.homeWorksElement;
             }
-          this.homeWorksElement = new HomeWorkDto();
-       }else{
+            this.homeWorksElement = new HomeWorkDto();
+        }else{
             this.messageService.add({severity: 'error',summary: 'Erreurs', detail: 'Merci de corrigé les erreurs suivant : ' + this.errorMessages});
         }
-   }
+    }
 
     public deleteHomeWork(p: HomeWorkDto) {
         this.item.homeWorks.forEach((element, index) => {
@@ -163,7 +195,7 @@ export class CoursEditAdminComponent extends AbstractEditController<CoursDto, Co
 
     private validateSectionsCode(){
         if (this.sectionsElement.code == null) {
-        this.errorMessages.push('Code de la section est  invalide');
+            this.errorMessages.push('Code de la section est  invalide');
             this.validSectionsCode = false;
         } else {
             this.validSectionsCode = true;
@@ -171,142 +203,142 @@ export class CoursEditAdminComponent extends AbstractEditController<CoursDto, Co
     }
     private validateHomeWorksLibelle(){
         if (this.homeWorksElement.libelle == null) {
-        this.errorMessages.push('Libelle de la homeWork est  invalide');
+            this.errorMessages.push('Libelle de la homeWork est  invalide');
             this.validHomeWorksLibelle = false;
         } else {
             this.validHomeWorksLibelle = true;
         }
     }
 
-   public async openCreateEtatCours(etatCours: string) {
+    public async openCreateEtatCours(etatCours: string) {
         const isPermistted = await this.roleService.isPermitted('EtatCours', 'edit');
         if(isPermistted) {
-             this.etatCours = new EtatCoursDto();
-             this.createEtatCoursDialog = true;
+            this.etatCours = new EtatCoursDto();
+            this.createEtatCoursDialog = true;
         }else{
-             this.messageService.add({
+            this.messageService.add({
                 severity: 'error', summary: 'erreur', detail: 'problème de permission'
             });
         }
     }
-   public async openCreateParcours(parcours: string) {
+    public async openCreateParcours(parcours: string) {
         const isPermistted = await this.roleService.isPermitted('Parcours', 'edit');
         if(isPermistted) {
-             this.parcours = new ParcoursDto();
-             this.createParcoursDialog = true;
+            this.parcours = new ParcoursDto();
+            this.createParcoursDialog = true;
         }else{
-             this.messageService.add({
+            this.messageService.add({
                 severity: 'error', summary: 'erreur', detail: 'problème de permission'
             });
         }
     }
-   public async openCreateCategorieSection(categorieSection: string) {
+    public async openCreateCategorieSection(categorieSection: string) {
         const isPermistted = await this.roleService.isPermitted('CategorieSection', 'edit');
         if(isPermistted) {
-             this.categorieSection = new CategorieSectionDto();
-             this.createCategorieSectionDialog = true;
+            this.categorieSection = new CategorieSectionDto();
+            this.createCategorieSectionDialog = true;
         }else{
-             this.messageService.add({
+            this.messageService.add({
                 severity: 'error', summary: 'erreur', detail: 'problème de permission'
             });
         }
     }
 
-   get typeHomeWork(): TypeHomeWorkDto {
-       return this.typeHomeWorkService.item;
-   }
-  set typeHomeWork(value: TypeHomeWorkDto) {
+    get typeHomeWork(): TypeHomeWorkDto {
+        return this.typeHomeWorkService.item;
+    }
+    set typeHomeWork(value: TypeHomeWorkDto) {
         this.typeHomeWorkService.item = value;
-   }
-   get typeHomeWorks(): Array<TypeHomeWorkDto> {
+    }
+    get typeHomeWorks(): Array<TypeHomeWorkDto> {
         return this.typeHomeWorkService.items;
-   }
-   set typeHomeWorks(value: Array<TypeHomeWorkDto>) {
+    }
+    set typeHomeWorks(value: Array<TypeHomeWorkDto>) {
         this.typeHomeWorkService.items = value;
-   }
-   get createTypeHomeWorkDialog(): boolean {
-       return this.typeHomeWorkService.createDialog;
-   }
-  set createTypeHomeWorkDialog(value: boolean) {
-       this.typeHomeWorkService.createDialog= value;
-   }
-   get etatCours(): EtatCoursDto {
-       return this.etatCoursService.item;
-   }
-  set etatCours(value: EtatCoursDto) {
+    }
+    get createTypeHomeWorkDialog(): boolean {
+        return this.typeHomeWorkService.createDialog;
+    }
+    set createTypeHomeWorkDialog(value: boolean) {
+        this.typeHomeWorkService.createDialog= value;
+    }
+    get etatCours(): EtatCoursDto {
+        return this.etatCoursService.item;
+    }
+    set etatCours(value: EtatCoursDto) {
         this.etatCoursService.item = value;
-   }
-   get etatCourss(): Array<EtatCoursDto> {
+    }
+    get etatCourss(): Array<EtatCoursDto> {
         return this.etatCoursService.items;
-   }
-   set etatCourss(value: Array<EtatCoursDto>) {
+    }
+    set etatCourss(value: Array<EtatCoursDto>) {
         this.etatCoursService.items = value;
-   }
-   get createEtatCoursDialog(): boolean {
-       return this.etatCoursService.createDialog;
-   }
-  set createEtatCoursDialog(value: boolean) {
-       this.etatCoursService.createDialog= value;
-   }
-   get parcours(): ParcoursDto {
-       return this.parcoursService.item;
-   }
-  set parcours(value: ParcoursDto) {
+    }
+    get createEtatCoursDialog(): boolean {
+        return this.etatCoursService.createDialog;
+    }
+    set createEtatCoursDialog(value: boolean) {
+        this.etatCoursService.createDialog= value;
+    }
+    get parcours(): ParcoursDto {
+        return this.parcoursService.item;
+    }
+    set parcours(value: ParcoursDto) {
         this.parcoursService.item = value;
-   }
-   get parcourss(): Array<ParcoursDto> {
+    }
+    get parcourss(): Array<ParcoursDto> {
         return this.parcoursService.items;
-   }
-   set parcourss(value: Array<ParcoursDto>) {
+    }
+    set parcourss(value: Array<ParcoursDto>) {
         this.parcoursService.items = value;
-   }
-   get createParcoursDialog(): boolean {
-       return this.parcoursService.createDialog;
-   }
-  set createParcoursDialog(value: boolean) {
-       this.parcoursService.createDialog= value;
-   }
-   get categorieSection(): CategorieSectionDto {
-       return this.categorieSectionService.item;
-   }
-  set categorieSection(value: CategorieSectionDto) {
+    }
+    get createParcoursDialog(): boolean {
+        return this.parcoursService.createDialog;
+    }
+    set createParcoursDialog(value: boolean) {
+        this.parcoursService.createDialog= value;
+    }
+    get categorieSection(): CategorieSectionDto {
+        return this.categorieSectionService.item;
+    }
+    set categorieSection(value: CategorieSectionDto) {
         this.categorieSectionService.item = value;
-   }
-   get categorieSections(): Array<CategorieSectionDto> {
+    }
+    get categorieSections(): Array<CategorieSectionDto> {
         return this.categorieSectionService.items;
-   }
-   set categorieSections(value: Array<CategorieSectionDto>) {
+    }
+    set categorieSections(value: Array<CategorieSectionDto>) {
         this.categorieSectionService.items = value;
-   }
-   get createCategorieSectionDialog(): boolean {
-       return this.categorieSectionService.createDialog;
-   }
-  set createCategorieSectionDialog(value: boolean) {
-       this.categorieSectionService.createDialog= value;
-   }
-   get sessionCours(): SessionCoursDto {
-       return this.sessionCoursService.item;
-   }
-  set sessionCours(value: SessionCoursDto) {
+    }
+    get createCategorieSectionDialog(): boolean {
+        return this.categorieSectionService.createDialog;
+    }
+    set createCategorieSectionDialog(value: boolean) {
+        this.categorieSectionService.createDialog= value;
+    }
+    get sessionCours(): SessionCoursDto {
+        return this.sessionCoursService.item;
+    }
+    set sessionCours(value: SessionCoursDto) {
         this.sessionCoursService.item = value;
-   }
-   get sessionCourss(): Array<SessionCoursDto> {
+    }
+    get sessionCourss(): Array<SessionCoursDto> {
         return this.sessionCoursService.items;
-   }
-   set sessionCourss(value: Array<SessionCoursDto>) {
+    }
+    set sessionCourss(value: Array<SessionCoursDto>) {
         this.sessionCoursService.items = value;
-   }
-   get createSessionCoursDialog(): boolean {
-       return this.sessionCoursService.createDialog;
-   }
-  set createSessionCoursDialog(value: boolean) {
-       this.sessionCoursService.createDialog= value;
-   }
+    }
+    get createSessionCoursDialog(): boolean {
+        return this.sessionCoursService.createDialog;
+    }
+    set createSessionCoursDialog(value: boolean) {
+        this.sessionCoursService.createDialog= value;
+    }
 
     get sectionsElement(): SectionDto {
         if( this._sectionsElement == null )
             this._sectionsElement = new SectionDto();
-         return this._sectionsElement;
+        return this._sectionsElement;
     }
 
     set sectionsElement(value: SectionDto) {
@@ -315,7 +347,7 @@ export class CoursEditAdminComponent extends AbstractEditController<CoursDto, Co
     get homeWorksElement(): HomeWorkDto {
         if( this._homeWorksElement == null )
             this._homeWorksElement = new HomeWorkDto();
-         return this._homeWorksElement;
+        return this._homeWorksElement;
     }
 
     set homeWorksElement(value: HomeWorkDto) {

@@ -1,52 +1,64 @@
 
-<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'coursTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="viewDialog" [style]="{width: '80vw'}" header="{{'coursTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <p-tabView>
             <p-tabPanel header="{{'coursTabPan' | translate}}">
-                <div class="grid">
-                    <div class="field col-12 md:col-3">
-                        <label for="1">{{'Code' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Code' | translate}}" autofocus  id="1" [(ngModel)]="item.code">
+                <div class="row">
+                    <div class="field col-3 float-left">
+                        <div *ngIf="item.image!=null">
+                            <label for="20" >{{'Cours image' | translate}}</label><br>
+                            <p-image [src]="item.image" alt="Image" id="20" width="210" height="170" [preview]="true"></p-image><br>
+                            <br>
+                        </div>
+                        <label for="21">{{'Cours Sections' | translate}}</label>
+                        <p-listbox [options]="item.sections"  id="21" optionLabel="libelle" [listStyle]="{ 'height': '150px' }" [filter]="true" ></p-listbox>
                     </div>
-                    <div class="field col-12 md:col-3">
-                        <label for="2">{{'Libelle' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Libelle' | translate}}" autofocus  id="2" [(ngModel)]="item.libelle">
-                    </div>
-                    <div class="field col-12 md:col-3">
-                        <label for="3">{{'Description' | translate}}</label>
-                        <textarea id="3" pInputTextarea rows="5" cols="30" [disabled]="true" placeholder="{{'Description' | translate}}"  [(ngModel)]="item.description"></textarea>
-                    </div>
-                    <div class="field col-12 md:col-3">
-                        <label for="4">{{'Image' | translate}}</label>
-                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Image' | translate}}" autofocus  id="4" [(ngModel)]="item.image">
-                    </div>
-                    <div class="field col-12 md:col-3">
-                        <label for="5">{{'Etat cours' | translate}}</label>
-                        <p-dropdown [options]="etatCourss" [(ngModel)]="item.etatCours" id="5" [disabled]="true" optionLabel="libelle" placeholder="{{'Etat cours' | translate}}"></p-dropdown>
-                    </div>
-                    <div class="field col-12 md:col-3">
-                        <label for="6">{{'Parcours' | translate}}</label>
-                        <p-dropdown [options]="parcourss" [(ngModel)]="item.parcours" id="6" [disabled]="true" optionLabel="libelle" placeholder="{{'Parcours' | translate}}"></p-dropdown>
-                    </div>
-                    <div class="field col-12 md:col-3">
-                        <label for="7">{{'Nombre section finalise' | translate}}</label>
-                        <p-inputNumber class="mb-2 mr-2" id="7" [disabled]="true" placeholder="{{'Nombre section finalise' | translate}}" [(ngModel)]="item.nombreSectionFinalise"></p-inputNumber>
-                    </div>
-                    <div class="field col-12 md:col-3">
-                        <label for="8">{{'Nombre section en cours' | translate}}</label>
-                        <p-inputNumber class="mb-2 mr-2" id="8" [disabled]="true" placeholder="{{'Nombre section en cours' | translate}}" [(ngModel)]="item.nombreSectionEnCours"></p-inputNumber>
-                    </div>
-                    <div class="field col-12 md:col-3">
-                        <label for="9">{{'Nombre link en cours' | translate}}</label>
-                        <p-inputNumber class="mb-2 mr-2" id="9" [disabled]="true" placeholder="{{'Nombre link en cours' | translate}}" [(ngModel)]="item.nombreLinkEnCours"></p-inputNumber>
-                    </div>
-                    <div class="field col-12 md:col-3">
-                        <label for="10">{{'Nombre link finalise' | translate}}</label>
-                        <p-inputNumber class="mb-2 mr-2" id="10" [disabled]="true" placeholder="{{'Nombre link finalise' | translate}}" [(ngModel)]="item.nombreLinkFinalise"></p-inputNumber>
-                    </div>
-                    <div class="field col-12 md:col-3">
-                        <label for="11">{{'Numero order' | translate}}</label>
-                        <p-inputNumber class="mb-2 mr-2" id="11" [disabled]="true" placeholder="{{'Numero order' | translate}}" [(ngModel)]="item.numeroOrder"></p-inputNumber>
+
+                    <div class="grid col-9 float-right">
+                        <div class="field col-12 md:col-3">
+                            <label for="1">{{'Code' | translate}}</label>
+                            <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Code' | translate}}" autofocus  id="1" [(ngModel)]="item.code">
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label for="2">{{'Libelle' | translate}}</label>
+                            <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Libelle' | translate}}" autofocus  id="2" [(ngModel)]="item.libelle">
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label for="3">{{'Description' | translate}}</label>
+                            <textarea id="3" pInputTextarea rows="5" cols="30" [disabled]="true" placeholder="{{'Description' | translate}}"  [(ngModel)]="item.description"></textarea>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label for="4">{{'Image' | translate}}</label>
+                            <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Image' | translate}}" autofocus  id="4" [(ngModel)]="item.image">
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label for="5">{{'Etat cours' | translate}}</label>
+                            <p-dropdown [options]="etatCourss" [(ngModel)]="item.etatCours" id="5" [disabled]="true" optionLabel="libelle" placeholder="{{'Etat cours' | translate}}"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label for="6">{{'Parcours' | translate}}</label>
+                            <p-dropdown [options]="parcourss" [(ngModel)]="item.parcours" id="6" [disabled]="true" optionLabel="libelle" placeholder="{{'Parcours' | translate}}"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label for="7">{{'Nombre section finalise' | translate}}</label>
+                            <p-inputNumber class="mb-2 mr-2" id="7" [disabled]="true" placeholder="{{'Nombre section finalise' | translate}}" [(ngModel)]="item.nombreSectionFinalise"></p-inputNumber>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label for="8">{{'Nombre section en cours' | translate}}</label>
+                            <p-inputNumber class="mb-2 mr-2" id="8" [disabled]="true" placeholder="{{'Nombre section en cours' | translate}}" [(ngModel)]="item.nombreSectionEnCours"></p-inputNumber>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label for="9">{{'Nombre link en cours' | translate}}</label>
+                            <p-inputNumber class="mb-2 mr-2" id="9" [disabled]="true" placeholder="{{'Nombre link en cours' | translate}}" [(ngModel)]="item.nombreLinkEnCours"></p-inputNumber>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label for="10">{{'Nombre link finalise' | translate}}</label>
+                            <p-inputNumber class="mb-2 mr-2" id="10" [disabled]="true" placeholder="{{'Nombre link finalise' | translate}}" [(ngModel)]="item.nombreLinkFinalise"></p-inputNumber>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label for="11">{{'Numero order' | translate}}</label>
+                            <p-inputNumber class="mb-2 mr-2" id="11" [disabled]="true" placeholder="{{'Numero order' | translate}}" [(ngModel)]="item.numeroOrder"></p-inputNumber>
+                        </div>
                     </div>
                 </div>
             </p-tabPanel>
