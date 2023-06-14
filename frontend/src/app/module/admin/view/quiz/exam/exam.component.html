@@ -331,6 +331,24 @@
                 <div class="input-group">
                     <input type="text" pInputText placeholder="Enter title" [(ngModel)]="titre" class="form-control">
                 </div>
+                <div class="input-group">
+                    <input type="text" pInputText placeholder="Enter Ref" [(ngModel)]="ref" class="form-control">
+                </div>
+                <div class="input-group row">
+                    <div class="col-md-6">
+                      <p-calendar placeholder="Enter quizDateDebut" [(ngModel)]="quizDateDebut"></p-calendar>
+                    </div>
+                    <div class="col-md-6">
+                      <p-calendar placeholder="Enter quizDateFin" [(ngModel)]="quizDateFin"></p-calendar>
+                    </div>
+                  </div>
+                  
+                <div class="input-group">
+                    <p-dropdown  appendTo="body"  [options]="sections" [(ngModel)]="quizSection" 
+                    [showClear]="true" optionLabel="code" placeholder="{{'quizSection' | translate}}"  >
+                     </p-dropdown>
+                </div>
+                        
             </div>
         </p-card>
     </div>

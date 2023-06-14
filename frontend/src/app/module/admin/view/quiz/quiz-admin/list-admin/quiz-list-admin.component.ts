@@ -97,4 +97,8 @@ export class QuizListAdminComponent extends AbstractListController<QuizDto, Quiz
             'Seuil reussite Max': this.criteria.seuilReussiteMax ? this.criteria.seuilReussiteMax : environment.emptyForExport ,
         }];
       }
+      showAddQuestionDialog() {
+        this.router.navigate(['/quiz/exam']);
+        //this.displayAddQuestionDialog = true;
+    }
 }

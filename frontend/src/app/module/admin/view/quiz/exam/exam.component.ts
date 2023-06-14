@@ -22,6 +22,7 @@ import {QuizCriteria} from "../../../../../controller/criteria/QuizCriteria.mode
 import {EtatReponseDto} from "../../../../../controller/model/EtatReponse.model";
 import Sortable from 'sortablejs';
 import {CdkDragDrop} from "@angular/cdk/drag-drop";
+import {SectionDto} from 'src/app/controller/model/Section.model';
 
 @Component({
   selector: 'app-exam',
@@ -33,12 +34,9 @@ export class ExamComponent  {
   types = [
     {label: 'Multiple Choice', value: 'checkbox' },
     {label: 'Short Answer', value: 'short_answer' },
-    {label: 'Paragraph', value: 'paragraph'},
     {label: 'Unique Choice', value: 'multiselect'},
     {label: 'TRANSLATE THE PHRASE', value: 'translate'},
     {label: 'CORRECT THE MISTAKE', value: 'CORRECT_THE_MISTAKE'},
-    {label: 'PUT WORDS TO GAP', value: 'PUT_WORDS_TO_GAP'},
-    {label: 'TRUE OR FALSE', value: 'TRUE_OR_FALSE'},
   ];
   newQuestion: { question: string,mistake?: string, type: string, choices?: string[], answer?: string,pointFausse: number, pointJuste: number } = {
     pointFausse: 0,
@@ -46,7 +44,10 @@ export class ExamComponent  {
     mistake:'',
     question: '', type: '', choices: [], answer: '' };
   quizForm: FormGroup;
-
+ref: any;
+quizDateDebut:any;
+quizDateFin: any;
+quizSection: any;
   //questions: any[] = []; // declare questions property
   questions: { question: string, type: string, choices?: string[], answer?: string,pointFausse: number, pointJuste: number  }[] = [];
   isChecked: boolean[][] = [];
@@ -55,6 +56,7 @@ export class ExamComponent  {
   selectedChoiceIndex: number = -1;
   titre: string;
   private lastSavedId: number;
+  sections: Array<SectionDto> = [];
 
 
   constructor(private cdr: ChangeDetectorRef,
@@ -83,9 +85,8 @@ export class ExamComponent  {
   @ViewChild('sortableChoices', { static: true }) sortableChoices!: ElementRef;
 
   ngOnInit(): void {
-    Sortable.create(this.types, {
-      handle: '.bi-grip-vertical',
-
+    this.sectionService.findAll().subscribe((data) => {
+      this.sections = data;
     });
   }
   onAddQuestion() {
@@ -124,7 +125,12 @@ export class ExamComponent  {
 
   }
 
-
+  get section(): SectionDto {
+    return this.sectionService.item;
+}
+set section(value: SectionDto) {
+    this.sectionService.item = value;
+}
 
 
   submitQuiz() {
@@ -244,6 +250,9 @@ export class ExamComponent  {
     }
 
     newQuizDto.lib = this.titre;
+    newQuizDto.section=this.quizSection;
+    newQuizDto.dateDebut=this.quizDateDebut;
+    newQuizDto.dateFin=this.quizDateFin;
     console.log(this.titre);
 
 
@@ -252,6 +261,8 @@ export class ExamComponent  {
           console.log('Quiz saved successfully:', response);
           this.lastSavedId = response.id;
           console.log('Quiz Id', this.lastSavedId);
+          console.log('Quiz hhh', this.lastSavedId);
+          alert('Quiz saved successfully!');
 
         }, error => {
           console.error('Error saving quiz:', error);
@@ -259,6 +270,12 @@ export class ExamComponent  {
 
 
   }
+
+
+
+
+
+
 
   viewQuiz() {
     this.router.navigate(['/quiz/view-quiz', String(this.lastSavedId)]);

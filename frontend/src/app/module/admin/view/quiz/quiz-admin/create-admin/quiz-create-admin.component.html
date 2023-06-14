@@ -1,4 +1,3 @@
-<!--
         <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'quizTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
             <ng-template pTemplate="content" >
                         <p-tabView>
@@ -65,7 +64,8 @@
                                     <p-tabPanel header="quizQuestions">
                                         <p-tabView [(activeIndex)]="activeTab">
                                             <p-tabPanel header="Création">
-                                                    <div class="grid">
+                                                <button pButton type="button" icon="pi pi-plus" (click)="showAddQuestionDialog()" label="Add Quiz"></button>
+                                                <!--    <div class="grid">
                                                                     <div class="field col-12 md:col-4">
                                                                         <label for="1">Ref<span style="color: red;">*</span></label>
                                                                         <input class="mb-2 mr-2" type="text" pInputText placeholder="Ref"
@@ -129,7 +129,7 @@
                                                             <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addQuestions()"></button>
                                                         </div>
 
-                                                    </div>
+                                                    </div>-->
                                             </p-tabPanel>
                                             <p-tabPanel header="Liste {{item.questions?.length > 0 ? '(' + item.questions?.length + ')' : ''}}">
                                                     <div class="card">
@@ -172,7 +172,7 @@
                                         </p-tabView>
                                     </p-tabPanel>
 
-                                    <p-tabPanel header="quizQuizEtudiants">
+                                <!--   <p-tabPanel header="quizQuizEtudiants">
                                         <p-tabView [(activeIndex)]="activeTab">
                                             <p-tabPanel header="Création">
                                                     <div class="grid">
@@ -243,7 +243,7 @@
 
                                             </p-tabPanel>
                                         </p-tabView>
-                                    </p-tabPanel>
+                                    </p-tabPanel>-->
 
 
                         </p-tabView>
@@ -266,7 +266,6 @@
             <app-type-de-question-create-admin></app-type-de-question-create-admin>
 
     </p-dialog>
--->
 
 
 
@@ -277,6 +276,7 @@
 
 
 
+<!--
 <button pButton type="button" icon="pi pi-plus" (click)="showAddQuestionDialog()" label="Add Quiz"></button>
 
 <p-dialog header="Add Question" [(visible)]="displayAddQuestionDialog" [style]="{ 'width': '600px', 'height': '420px' }" [modal]="true">
@@ -339,3 +339,4 @@
 
 </p-dialog>
 
+-->
