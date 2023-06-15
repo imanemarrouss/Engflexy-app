@@ -15,7 +15,7 @@
                     <div class="question-answer">
                         <div [ngSwitch]="questions[currentQuestionIndex].typeDeQuestion.lib">
                             <div *ngSwitchCase="'short_answer'">
-                                <input type="text" pInputText [(ngModel)]="questions[currentQuestionIndex].reponses" />
+                                <input type="text" pInputText [(ngModel)]="short_answer" />
                             </div>
                             <div *ngSwitchCase="'checkbox'">
                                 <div *ngFor="let choice of questions[currentQuestionIndex].reponses; let i = index">
@@ -115,7 +115,11 @@
                     <div class="question-answer">
                         <div [ngSwitch]="question.typeDeQuestion.lib">
                             <div *ngSwitchCase="'short_answer'">
-                                <input type="text" pInputText [disabled]="true" [ngModel]="question.reponses[0].lib" />
+                            <!--    <input type="text" pInputText [disabled]="true" [ngModel]="question.reponses[0].lib" />-->
+                            <div *ngFor="let choice of question.reponses">
+                                <h4>Correct Answer:</h4>
+                                <p>{{choice.lib}}</p>
+                            </div>
                             </div>
                             <div *ngSwitchCase="'CORRECT_THE_MISTAKE'">
                                 <div *ngFor="let choice of question.reponses">

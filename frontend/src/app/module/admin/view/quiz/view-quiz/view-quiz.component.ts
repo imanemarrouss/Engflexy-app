@@ -25,6 +25,7 @@ export class ViewQuizComponent {
   selectedAnswer: any;
 mistake: any;
 translated: any;
+short_answer: any;
   constructor(private http: HttpClient,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -117,6 +118,16 @@ translated: any;
         }
       }else if (question.typeDeQuestion.lib === 'translate') {
         const userAnswer = this.translated;
+        const correctAnswer = question.reponses[0];
+
+        if (userAnswer && userAnswer.trim().toLowerCase() === correctAnswer) {
+          pointsJuste += question.pointReponseJuste;
+          isQuestionCorrect = true;
+        } else {
+          pointsFaux += question.pointReponsefausse;
+        }
+      }else if (question.typeDeQuestion.lib === 'short_answer') {
+        const userAnswer = this.short_answer;
         const correctAnswer = question.reponses[0];
 
         if (userAnswer && userAnswer.trim().toLowerCase() === correctAnswer) {
